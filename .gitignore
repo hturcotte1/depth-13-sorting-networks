@@ -1,0 +1,10 @@
+# build products
+sortnet_d13/src/snt/snt
+sortnet_d13/src/verify_c
+__pycache__/
+*.o
+# large search artifacts (CNF instances, solver outputs); logs and networks are kept
+sortnet_d13/runs/**/cnf/
+sortnet_d13/runs/**/*.cnf
+sortnet_d13/runs/**/*.sol
+sortnet_d13/runs/**/*.d[0-9]

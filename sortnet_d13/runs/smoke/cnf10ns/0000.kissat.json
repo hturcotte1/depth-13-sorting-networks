@@ -1,0 +1,1 @@
+{"cnf": "0000.cnf", "solver": "kissat", "status": "SAT", "time": 0.3, "timeout": 60.0, "host": "vm", "decode_rc": 0, "decode_head": "# raw: n=10 depth=7 size=33 sorting=1 symmetric=1 |out|=11\n# simplified: n=10 depth=7 size=31 symmetric=1", "net": "runs/smoke/cnf10ns/0000.kissat.net.txt"}
