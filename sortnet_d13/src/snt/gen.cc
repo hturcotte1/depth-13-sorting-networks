@@ -11,9 +11,9 @@ namespace {
 
 // Wang's AddComparator DFS: enumerate comparator subsets added to the last layer.
 void dfs(const Net &net, bool sym, const std::vector<std::vector<char>> &hinv, int i0, int remaining,
-         std::vector<Net> &out) {
+         const std::function<void(const Net &)> &emit) {
   int n = net.n;
-  out.push_back(net);
+  emit(net);
   if (remaining == 0) return;
   const auto &L = net.layers.back();
   for (int i = i0; i < n; i++) {
@@ -39,7 +39,7 @@ void dfs(const Net &net, bool sym, const std::vector<std::vector<char>> &hinv, i
         if (k < j) upd(k, j);
         if (k > j) upd(j, k);
       }
-      dfs(nn, sym, h, i + 1, remaining - 1, out);
+      dfs(nn, sym, h, i + 1, remaining - 1, emit);
     }
   }
 }
@@ -60,43 +60,50 @@ std::vector<std::vector<char>> compute_hinv(const Net &net) {
 std::vector<Net> extend_nets(const std::vector<Net> &nets, bool sym, bool one_at_a_time, int keep_best,
                              std::mt19937 &gen, int threads, int chunk) {
   int n = nets[0].n;
+  const size_t FLUSH_ELEMS = 20000000;  // per-worker buffer budget (output-set elements, ~160 MB) before a fast local prune
   std::vector<Net> acc;
-  size_t total_generated = 0;
-  for (size_t start = 0; start < nets.size(); start += chunk) {
-    size_t end = std::min(nets.size(), start + chunk);
-    std::vector<Net> ext;
-    std::mutex m;
-    std::atomic<size_t> next(start);
-    std::vector<std::thread> ts;
-    for (int t = 0; t < threads; t++)
-      ts.emplace_back([&]() {
-        while (true) {
-          size_t idx = next.fetch_add(1);
-          if (idx >= end) break;
-          const Net &net = nets[idx];
-          CHECK(!net.outputs.empty());
-          std::vector<Net> local;
-          dfs(net, sym, compute_hinv(net), 0, one_at_a_time ? 1 : 1 << 30, local);
-          std::lock_guard<std::mutex> lk(m);
-          for (auto &x : local) ext.push_back(std::move(x));
-        }
-      });
-    for (auto &t : ts) t.join();
-    total_generated += ext.size();
-    fprintf(stderr, "extend: chunk %zu-%zu generated %zu candidates (n=%d)\n", start, end, ext.size(), n);
-    // pre-prune this chunk (fast, sound) and merge
-    for (auto &x : ext) acc.push_back(std::move(x));
-    if (end < nets.size()) {
-      acc = remove_redundant(std::move(acc), sym, true, gen, threads);
-      if (keep_best > 0 && (int)acc.size() > 4 * keep_best) {
-        // keep the 4*keep_best smallest output sets (ties included)
-        size_t thr = acc[4 * keep_best - 1].outputs.size();
-        while (acc.back().outputs.size() > thr) acc.pop_back();
-      }
-      fprintf(stderr, "extend: accumulated %zu after pre-prune\n", acc.size());
+  std::mutex acc_m;
+  std::atomic<size_t> total_generated(0);
+  std::atomic<size_t> next(0);
+  std::vector<std::mt19937> gens;
+  for (int t = 0; t < threads; t++) gens.emplace_back(gen());
+  auto local_prune = [&](std::vector<Net> &buf, std::mt19937 &g) {
+    buf = remove_redundant(std::move(buf), sym, true, g, 1);
+    if (keep_best > 0 && (int)buf.size() > 4 * keep_best) {
+      size_t thr = buf[4 * keep_best - 1].outputs.size();
+      while (buf.back().outputs.size() > thr) buf.pop_back();
     }
-  }
-  fprintf(stderr, "extend: total generated %zu; final clean_up (keep=%d)\n", total_generated, keep_best);
+  };
+  std::vector<std::thread> ts;
+  for (int t = 0; t < threads; t++)
+    ts.emplace_back([&, t]() {
+      std::vector<Net> buf;
+      size_t buf_elems = 0;
+      auto emit = [&](const Net &x) {
+        buf.push_back(x);
+        buf_elems += x.outputs.size();
+        total_generated++;
+        if (buf_elems >= FLUSH_ELEMS) {
+          local_prune(buf, gens[t]);
+          buf_elems = 0;
+          for (auto &b : buf) buf_elems += b.outputs.size();
+        }
+      };
+      while (true) {
+        size_t idx = next.fetch_add(1);
+        if (idx >= nets.size()) break;
+        const Net &net = nets[idx];
+        CHECK(!net.outputs.empty());
+        dfs(net, sym, compute_hinv(net), 0, one_at_a_time ? 1 : 1 << 30, emit);
+        if ((idx + 1) % 500 == 0) fprintf(stderr, "extend: %zu/%zu prefixes expanded, %zu candidates so far\n", idx + 1, nets.size(), total_generated.load());
+      }
+      if (buf_elems > FLUSH_ELEMS / 2) local_prune(buf, gens[t]);
+      std::lock_guard<std::mutex> lk(acc_m);
+      for (auto &x : buf) acc.push_back(std::move(x));
+    });
+  for (auto &t : ts) t.join();
+  (void)chunk;
+  fprintf(stderr, "extend: total generated %zu, %zu after local pruning; final clean_up (keep=%d)\n", total_generated.load(), acc.size(), keep_best);
   if (keep_best <= 0) return remove_redundant(std::move(acc), sym, false, gen, threads);
   return clean_up(std::move(acc), sym, keep_best, gen, threads);
 }

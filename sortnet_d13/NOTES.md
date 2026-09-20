@@ -68,3 +68,26 @@ for n=32 all natural 5-layer prefixes sit at ~6900-7600 (about 2.4x Wang's 28-ch
 - Bug found and fixed: decoding a suffix found under a channel permutation must untangle reversed comparators
   (Knuth 5.3.4 ex. 16; Wang's PermuteInputChannels does this). Before the fix the decoded 10-channel networks did not sort;
   after it, 3/3 decoded n=10 depth-7 networks pass both verifiers, and depth 6 is UNSAT for the same prefixes (tests/test_pipeline.py).
+
+## Phase 1 — Wang n=28 d=13 reproduced end to end (VERIFIED) — finished 16:42 UTC
+Built Wang's tools from source with a plain Makefile (Makefile.local in the clone) against apt libraries, with one local patch
+(NetworkOutputs computed sparsely; see above). Pipeline exactly as in his README (4 cores, contended part of the time by my own jobs):
+| step | wall time |
+|---|---|
+| add_layers_main n=12 sym depth 5 keep ,,,4 | 13m47s (Wang: 7 min on M2) |
+| add_layers_main n=16 sym depth 5 keep 1,1,1,1 | 1m25s (Wang: 1 min) |
+| stack_main 12+16 | <1 s |
+| add_comparators_main keep 64 (6th layer) | 11 s |
+| optimize_window_size_main | 2 s |
+| sat_generate_cnf_main depth 13 limit 8 | 11 s |
+| sat_solve_main.py minisat (8 instances, 4 parallel) | 20m47s; per-instance 26.7, 39.0, 44.2, 45.8, 197.1, 549.8, 906.9 s + one more; all 8 SAT |
+| decode_solution_main --simplify | 53 s |
+Total ~37 min. Output: 8 networks, 28 channels, 13 layers, sizes 165,167,167,168,170,170,173,173 (Wang's published 159 is a further-reduced one).
+All 8 pass src/verify_c (exhaustive 2^28) and src/verify_py --mode outputset. Files: runs/phase1_wang/.
+Calibration conclusion: the encoding/decoding chain and both verifiers agree with Wang's published result.
+
+## Memory limit
+All tool processes share one cgroup with memory.limit_in_bytes = 14,345,912,320 (14.3 GB). At 16:41 the sum of Wang's job
+(~9 GB during n=12 depth-4 pruning) + my calibration (4.7 GB) + n=16 greedy hit it and the kernel killed my two snt processes.
+Mitigation implemented in src/snt: outputs moved (not copied) into the pruner, survivors compacted after every pass and their
+output sets recomputed, per-worker candidate buffers flushed with a fast prune when they exceed a memory budget.

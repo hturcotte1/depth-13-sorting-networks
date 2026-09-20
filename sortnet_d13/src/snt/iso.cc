@@ -178,26 +178,27 @@ std::pair<std::vector<Out>, std::vector<int>> sort_by_weight(int n, const std::v
 }
 
 std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool fast, bool symmetric, std::mt19937 &gen, int threads) {
-  int N = outs.size();
-  for (int i = 1; i < N; i++) CHECK(outs[i - 1].size() <= outs[i].size());
-  std::vector<Agg> agg(N), agg_inv(N);
-  parallel_for(N, threads, [&](int i) {
+  int N0 = outs.size();
+  for (int i = 1; i < N0; i++) CHECK(outs[i - 1].size() <= outs[i].size());
+  // idx[i] = original index of the i-th surviving set; sets are compacted after every pass
+  std::vector<int> idx(N0);
+  for (int i = 0; i < N0; i++) idx[i] = i;
+  std::vector<bool> result(N0, false);
+  std::vector<Agg> agg(N0), agg_inv(N0);
+  parallel_for(N0, threads, [&](int i) {
     agg[i] = aggregate(n, outs[i]);
     agg_inv[i] = invert_agg(agg[i]);
   });
-  std::vector<std::atomic<bool>> red(N);
-  for (int i = 0; i < N; i++) red[i] = false;
   int passes = fast ? 2 : 6;
   std::vector<std::mt19937> gens;
   for (int t = 0; t < threads; t++) gens.emplace_back(gen());
   for (int pass = 0; pass < passes; pass++) {
+    int N = outs.size();
     bool last = (pass + 1 == passes);
     bool use_inv = !fast && (pass + 2 >= passes);
     std::vector<std::vector<Out>> outs_inv;
     if (use_inv) outs_inv = outs;
-    // re-randomise column order (symmetric-preserving), and complement copies
     {
-      std::mutex m;
       std::atomic<int> next(0);
       std::vector<std::thread> ts;
       for (int t = 0; t < threads; t++)
@@ -205,7 +206,6 @@ std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool
           while (true) {
             int i = next.fetch_add(1);
             if (i >= N) break;
-            if (red[i]) continue;
             outs[i] = sort_by_weight(n, outs[i], &gens[t], symmetric).first;
             if (use_inv) {
               for (Out &x : outs_inv[i]) x ^= full_mask(n);
@@ -215,11 +215,12 @@ std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool
         });
       for (auto &t : ts) t.join();
     }
+    std::vector<std::atomic<bool>> red(N);
+    for (int i = 0; i < N; i++) red[i] = false;
     parallel_for(N, threads, [&](int i) {
-      if (red[i]) return;
       size_t si = outs[i].size();
       for (int j = 0; j < N; j++) {
-        if (red[j] || j == i) continue;
+        if (j == i || red[j]) continue;
         size_t sj = outs[j].size();
         if (si < sj) break;
         if (si == sj && i < j) break;
@@ -246,13 +247,29 @@ std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool
         }
       }
     });
-    int cnt = 0;
-    for (int i = 0; i < N; i++) cnt += !red[i];
-    fprintf(stderr, "  prune pass %d/%d: %d remain\n", pass + 1, passes, cnt);
+    // compact
+    int w = 0;
+    for (int i = 0; i < N; i++) {
+      if (red[i]) {
+        result[idx[i]] = true;
+        continue;
+      }
+      if (w != i) {
+        outs[w] = std::move(outs[i]);
+        agg[w] = std::move(agg[i]);
+        agg_inv[w] = std::move(agg_inv[i]);
+        idx[w] = idx[i];
+      }
+      w++;
+    }
+    outs.resize(w);
+    agg.resize(w);
+    agg_inv.resize(w);
+    idx.resize(w);
+    outs.shrink_to_fit();
+    fprintf(stderr, "  prune pass %d/%d: %d remain\n", pass + 1, passes, w);
   }
-  std::vector<bool> r(N);
-  for (int i = 0; i < N; i++) r[i] = red[i];
-  return r;
+  return result;
 }
 
 std::vector<Net> remove_redundant(std::vector<Net> nets, bool symmetric, bool fast, std::mt19937 &gen, int threads) {
@@ -261,11 +278,15 @@ std::vector<Net> remove_redundant(std::vector<Net> nets, bool symmetric, bool fa
   int n = nets[0].n;
   std::vector<std::vector<Out>> outs;
   outs.reserve(nets.size());
-  for (auto &x : nets) outs.push_back(x.outputs);
+  for (auto &x : nets) outs.push_back(std::move(x.outputs));  // outputs are moved out (memory)
   std::vector<bool> red = find_redundant(n, std::move(outs), fast, symmetric, gen, threads);
   std::vector<Net> r;
   for (size_t i = 0; i < nets.size(); i++)
     if (!red[i]) r.push_back(std::move(nets[i]));
+  nets.clear();
+  nets.shrink_to_fit();
+  // recompute the (unpermuted) output sets of the survivors
+  parallel_for(r.size(), threads, [&](int i) { r[i].outputs = compute_outputs(r[i]); });
   return r;
 }
 
