@@ -1,0 +1,112 @@
+gen: n=14 sym=1 start depth 1 with 4 networks
+  prune pass 1/2: 1137 remain
+  prune pass 2/2: 843 remain
+extend: total generated 22730, 2701 after local pruning; final clean_up (keep=1)
+  prune pass 1/2: 311 remain
+  prune pass 2/2: 248 remain
+  prune pass 1/6: 1 remain
+  prune pass 2/6: 1 remain
+  prune pass 3/6: 1 remain
+  prune pass 4/6: 1 remain
+  prune pass 5/6: 1 remain
+  prune pass 6/6: 1 remain
+  clean_up: increasing prefilter to 3
+  prune pass 1/6: 3 remain
+  prune pass 2/6: 3 remain
+  prune pass 3/6: 3 remain
+  prune pass 4/6: 3 remain
+  prune pass 5/6: 2 remain
+  prune pass 6/6: 2 remain
+  clean_up: increasing prefilter to 5
+  prune pass 1/6: 5 remain
+  prune pass 2/6: 5 remain
+  prune pass 3/6: 5 remain
+  prune pass 4/6: 4 remain
+  prune pass 5/6: 4 remain
+  prune pass 6/6: 3 remain
+  clean_up: increasing prefilter to 8
+  prune pass 1/6: 7 remain
+  prune pass 2/6: 7 remain
+  prune pass 3/6: 7 remain
+  prune pass 4/6: 6 remain
+  prune pass 5/6: 5 remain
+  prune pass 6/6: 4 remain
+  clean_up: increasing prefilter to 12
+  prune pass 1/6: 10 remain
+  prune pass 2/6: 10 remain
+  prune pass 3/6: 9 remain
+  prune pass 4/6: 9 remain
+  prune pass 5/6: 9 remain
+  prune pass 6/6: 4 remain
+  clean_up: increasing prefilter to 18
+  prune pass 1/6: 15 remain
+  prune pass 2/6: 14 remain
+  prune pass 3/6: 14 remain
+  prune pass 4/6: 13 remain
+  prune pass 5/6: 9 remain
+  prune pass 6/6: 5 remain
+  clean_up: increasing prefilter to 27
+  prune pass 1/6: 22 remain
+  prune pass 2/6: 18 remain
+  prune pass 3/6: 17 remain
+  prune pass 4/6: 17 remain
+  prune pass 5/6: 16 remain
+  prune pass 6/6: 6 remain
+  clean_up: increasing prefilter to 41
+  prune pass 1/6: 35 remain
+  prune pass 2/6: 31 remain
+  prune pass 3/6: 26 remain
+  prune pass 4/6: 25 remain
+  prune pass 5/6: 23 remain
+  prune pass 6/6: 10 remain
+gen: depth 2 -> 6 non-redundant prefixes (6.0 s); best |out| = 648
+  prune pass 1/2: 2322 remain
+  prune pass 2/2: 2040 remain
+extend: total generated 27427, 4 after local pruning; final clean_up (keep=1)
+  prune pass 1/2: 4 remain
+  prune pass 2/2: 4 remain
+  prune pass 1/6: 2 remain
+  prune pass 2/6: 2 remain
+  prune pass 3/6: 2 remain
+  prune pass 4/6: 2 remain
+  prune pass 5/6: 2 remain
+  prune pass 6/6: 2 remain
+  clean_up: increasing prefilter to 3
+  prune pass 1/6: 3 remain
+  prune pass 2/6: 3 remain
+  prune pass 3/6: 3 remain
+  prune pass 4/6: 3 remain
+  prune pass 5/6: 3 remain
+  prune pass 6/6: 3 remain
+gen: depth 3 -> 2 non-redundant prefixes (2.2 s); best |out| = 220
+extend: total generated 3547, 3547 after local pruning; final clean_up (keep=1)
+  prune pass 1/2: 271 remain
+  prune pass 2/2: 243 remain
+  prune pass 1/6: 2 remain
+  prune pass 2/6: 2 remain
+  prune pass 3/6: 2 remain
+  prune pass 4/6: 2 remain
+  prune pass 5/6: 2 remain
+  prune pass 6/6: 2 remain
+  clean_up: increasing prefilter to 3
+  prune pass 1/6: 3 remain
+  prune pass 2/6: 3 remain
+  prune pass 3/6: 3 remain
+  prune pass 4/6: 3 remain
+  prune pass 5/6: 3 remain
+  prune pass 6/6: 3 remain
+gen: depth 4 -> 2 non-redundant prefixes (0.1 s); best |out| = 110
+extend: total generated 1882, 1882 after local pruning; final clean_up (keep=1)
+  prune pass 1/2: 491 remain
+  prune pass 2/2: 435 remain
+  prune pass 1/6: 2 remain
+  prune pass 2/6: 2 remain
+  prune pass 3/6: 2 remain
+  prune pass 4/6: 2 remain
+  prune pass 5/6: 2 remain
+  prune pass 6/6: 2 remain
+gen: depth 5 -> 1 non-redundant prefixes (0.0 s); best |out| = 69
+
+real	0m8.378s
+user	0m6.041s
+sys	0m1.756s

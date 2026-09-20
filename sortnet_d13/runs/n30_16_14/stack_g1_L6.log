@@ -1,0 +1,8 @@
+extend: total generated 1180, 1180 after local pruning; final clean_up (keep=64)
+  prune pass 1/2: 403 remain
+  prune pass 2/2: 325 remain
+  prune pass 1/6: 106 remain
+  prune pass 2/6: 96 remain
+  prune pass 3/6: 89 remain
+  prune pass 4/6: 84 remain
+  prune pass 5/6: 81 remain

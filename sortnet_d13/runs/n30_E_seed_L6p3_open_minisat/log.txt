@@ -2,3 +2,33 @@
 args: lib=runs/n30_seed/vv_del_L6p3.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1800 limit=8 jobs=4 extra='--open_last'
 output-set sizes of the prefixes to be solved:
 0 1186;1 1188;2 1196;3 1200;4 1204;5 1206;6 1208;7 1208;
+cnf 0000: |out|=1186 window_sum=11956 max=28 vars=100585 clauses=3371116 (0.4 s)
+cnf 0001: |out|=1188 window_sum=12054 max=29 vars=101369 clauses=3412668 (0.3 s)
+cnf 0002: |out|=1196 window_sum=12516 max=29 vars=105065 clauses=3642742 (0.4 s)
+cnf 0003: |out|=1200 window_sum=12160 max=28 vars=102217 clauses=3468040 (0.6 s)
+cnf 0004: |out|=1204 window_sum=12174 max=29 vars=102329 clauses=3471540 (0.6 s)
+cnf 0005: |out|=1206 window_sum=12222 max=28 vars=102713 clauses=3482640 (0.6 s)
+cnf 0006: |out|=1208 window_sum=12120 max=29 vars=101897 clauses=3388860 (0.4 s)
+cnf 0007: |out|=1208 window_sum=12030 max=29 vars=101177 clauses=3347772 (0.5 s)
+cnf generation took 33 s
+solving 8 instances with minisat, timeout 1800s, 4 jobs
+18:18:02 0001.cnf UNSAT 17.0s 
+18:18:03 0000.cnf UNSAT 18.5s 
+18:18:05 0003.cnf UNSAT 20.1s 
+18:18:09 0002.cnf UNSAT 23.7s 
+18:18:23 0005.cnf UNSAT 19.3s 
+18:18:23 0004.cnf UNSAT 21.2s 
+18:18:23 0006.cnf UNSAT 18.2s 
+18:18:24 0007.cnf UNSAT 15.4s 
+done: 0 SAT of 8 in 39s wall
+solving took 39 s
+=== run n30_E_seed_L6p3_open_minisat finished 2026-09-20T18:18:24Z
+summary: 8 instances: 0 SAT, 8 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 18s
+  0001.cnf minisat UNSAT 17s
+  0002.cnf minisat UNSAT 24s
+  0003.cnf minisat UNSAT 20s
+  0004.cnf minisat UNSAT 21s
+  0005.cnf minisat UNSAT 19s
+  0006.cnf minisat UNSAT 18s
+  0007.cnf minisat UNSAT 15s

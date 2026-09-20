@@ -1,0 +1,77 @@
+gen: n=14 sym=1 start depth 1 with 4 networks
+  prune pass 1/2: 1137 remain
+  prune pass 2/2: 843 remain
+extend: total generated 22730, 2701 after local pruning; final clean_up (keep=4)
+  prune pass 1/2: 311 remain
+  prune pass 2/2: 248 remain
+  prune pass 1/6: 7 remain
+  prune pass 2/6: 7 remain
+  prune pass 3/6: 7 remain
+  prune pass 4/6: 6 remain
+  prune pass 5/6: 6 remain
+  prune pass 6/6: 4 remain
+  clean_up: increasing prefilter to 12
+  prune pass 1/6: 11 remain
+  prune pass 2/6: 9 remain
+  prune pass 3/6: 7 remain
+  prune pass 4/6: 7 remain
+  prune pass 5/6: 7 remain
+  prune pass 6/6: 4 remain
+  clean_up: increasing prefilter to 18
+  prune pass 1/6: 15 remain
+  prune pass 2/6: 14 remain
+  prune pass 3/6: 13 remain
+  prune pass 4/6: 12 remain
+  prune pass 5/6: 11 remain
+  prune pass 6/6: 5 remain
+  clean_up: increasing prefilter to 27
+  prune pass 1/6: 23 remain
+  prune pass 2/6: 20 remain
+  prune pass 3/6: 19 remain
+  prune pass 4/6: 19 remain
+  prune pass 5/6: 18 remain
+  prune pass 6/6: 6 remain
+  clean_up: increasing prefilter to 41
+  prune pass 1/6: 31 remain
+  prune pass 2/6: 28 remain
+  prune pass 3/6: 27 remain
+  prune pass 4/6: 24 remain
+  prune pass 5/6: 21 remain
+  prune pass 6/6: 10 remain
+gen: depth 2 -> 6 non-redundant prefixes (6.1 s); best |out| = 648
+  prune pass 1/2: 2326 remain
+  prune pass 2/2: 2037 remain
+extend: total generated 27427, 18 after local pruning; final clean_up (keep=4)
+  prune pass 1/2: 17 remain
+  prune pass 2/2: 17 remain
+  prune pass 1/6: 7 remain
+  prune pass 2/6: 7 remain
+  prune pass 3/6: 7 remain
+  prune pass 4/6: 7 remain
+  prune pass 5/6: 7 remain
+  prune pass 6/6: 7 remain
+gen: depth 3 -> 4 non-redundant prefixes (2.4 s); best |out| = 220
+extend: total generated 8005, 8005 after local pruning; final clean_up (keep=4)
+  prune pass 1/2: 790 remain
+  prune pass 2/2: 717 remain
+  prune pass 1/6: 8 remain
+  prune pass 2/6: 8 remain
+  prune pass 3/6: 8 remain
+  prune pass 4/6: 8 remain
+  prune pass 5/6: 8 remain
+  prune pass 6/6: 8 remain
+gen: depth 4 -> 4 non-redundant prefixes (0.2 s); best |out| = 110
+extend: total generated 4575, 4575 after local pruning; final clean_up (keep=8)
+  prune pass 1/2: 1162 remain
+  prune pass 2/2: 1025 remain
+  prune pass 1/6: 15 remain
+  prune pass 2/6: 15 remain
+  prune pass 3/6: 15 remain
+  prune pass 4/6: 13 remain
+  prune pass 5/6: 13 remain
+  prune pass 6/6: 13 remain
+gen: depth 5 -> 8 non-redundant prefixes (0.1 s); best |out| = 66
+
+real	0m8.824s
+user	0m6.951s
+sys	0m1.269s

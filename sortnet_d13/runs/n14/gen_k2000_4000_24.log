@@ -7,3 +7,17 @@ extend: total generated 22730, 10378 after local pruning; final clean_up (keep=0
   prune pass 3/6: 619 remain
   prune pass 4/6: 544 remain
   prune pass 5/6: 449 remain
+  prune pass 6/6: 69 remain
+gen: depth 2 -> 69 non-redundant prefixes (41.6 s); best |out| = 648
+  prune pass 1/2: 7528 remain
+  prune pass 1/2: 7632 remain
+  prune pass 2/2: 7032 remain
+  prune pass 2/2: 7110 remain
+  prune pass 1/2: 12604 remain
+  prune pass 2/2: 12021 remain
+  prune pass 1/2: 15685 remain
+  prune pass 2/2: 14840 remain
+  prune pass 1/2: 12230 remain
+  prune pass 1/2: 10112 remain
+  prune pass 2/2: 11623 remain
+  prune pass 2/2: 9647 remain

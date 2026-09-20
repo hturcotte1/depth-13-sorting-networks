@@ -141,3 +141,14 @@ Run D (18:15): p3 prefixes (7th layer frozen with 3 pairs), 6 SAT layers, minisa
 snt extend keep 64, 2 layers, 1 thread (31 min, loaded machine): layer 6 best |out| 5312 -> ... -> 1787 (7 pairs, saturated);
 layer 7: 1581 -> ... -> 992 (7 pairs). 83 seven-layer prefixes with |out| 992..1026 (runs/n32_seed/vv_nested_L7.txt; six-layer set in .L1).
 Same shape as n=30 (6723 -> 1699 -> 928).
+
+## Run E result — NEGATIVE (18:18 UTC)
+runs/n30_E_seed_L6p3_open_minisat: same p3 prefixes with the 7th layer OPEN (3 greedy pairs fixed, SAT may add comparators on the
+other 24 channels of layer 7, then 6 layers; CNFs ~100k vars / 3.3M clauses): all 8 UNSAT in 15-24 s.
+Conclusion for the seed family (VV16+VV16 nested minus {0,31}, greedy 6th layer): any prefix containing the first 3 greedy
+layer-7 pairs is not completable; whether the 6-layer prefixes are completable at all is open (run A: 1800 s timeouts).
+
+## 16+14 nested route (the faithful analog of Wang's 16+12) — 18:25 UTC
+Quick 14-channel prefixes: `snt gen --n 14 --sym --depth 5 --keep 1,1,1,1` -> depth 2/3/4/5 best |out| 648/220/110/69 (1 prefix, 8 s).
+Stacked with the two VV16 prefixes (83): 16-outer/14-inner and 14-outer/16-inner, |out| = 83*69 = 5727 each (4 stacked prefixes).
+Greedy 6th layer (keep 64 across all 4) running -> run F.
