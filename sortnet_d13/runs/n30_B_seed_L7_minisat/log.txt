@@ -12,3 +12,23 @@ cnf 0006: |out|=940 window_sum=8748 max=27 vars=65468 clauses=1996034 (0.2 s)
 cnf 0007: |out|=940 window_sum=8750 max=27 vars=65482 clauses=2001174 (0.2 s)
 cnf generation took 32 s
 solving 8 instances with minisat, timeout 1800s, 4 jobs
+17:39:45 0002.cnf UNSAT 10.3s 
+17:39:46 0000.cnf UNSAT 10.7s 
+17:39:46 0001.cnf UNSAT 10.8s 
+17:39:47 0003.cnf UNSAT 11.8s 
+17:39:54 0004.cnf UNSAT 8.7s 
+17:39:55 0006.cnf UNSAT 9.0s 
+17:39:55 0007.cnf UNSAT 8.3s 
+17:39:56 0005.cnf UNSAT 10.0s 
+done: 0 SAT of 8 in 21s wall
+solving took 21 s
+=== run n30_B_seed_L7_minisat finished 2026-09-20T17:39:56Z
+summary: 8 instances: 0 SAT, 8 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 11s
+  0001.cnf minisat UNSAT 11s
+  0002.cnf minisat UNSAT 10s
+  0003.cnf minisat UNSAT 12s
+  0004.cnf minisat UNSAT 9s
+  0005.cnf minisat UNSAT 10s
+  0006.cnf minisat UNSAT 9s
+  0007.cnf minisat UNSAT 8s

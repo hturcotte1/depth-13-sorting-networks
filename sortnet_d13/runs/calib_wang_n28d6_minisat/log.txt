@@ -1,0 +1,12 @@
+=== run calib_wang_n28d6_minisat started 2026-09-20T17:40:38Z on vm
+args: lib=data/prefixes/wang_n28d6_64.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1800 limit=4 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 928;1 928;2 928;3 928;
+cnf 0000: |out|=928 window_sum=8608 max=25 vars=73178 clauses=2254594 (0.2 s)
+cnf 0001: |out|=928 window_sum=8614 max=25 vars=73226 clauses=2257966 (0.3 s)
+cnf 0002: |out|=928 window_sum=8624 max=25 vars=73306 clauses=2223854 (0.2 s)
+cnf 0003: |out|=928 window_sum=8622 max=25 vars=73290 clauses=2221386 (0.3 s)
+cnf generation took 6 s
+solving 4 instances with minisat, timeout 1800s, 2 jobs
+17:42:40 0000.cnf SAT 102.1s # raw: n=28 depth=13 size=176 sorting=1 symmetric=1 |out|=29 untangled=45
+# simplified: n=28 depth=13 size=170 symmetric=1

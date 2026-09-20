@@ -114,3 +114,16 @@ MiniSat is >10x faster on these instances (consistent with Wang's choice). Plan:
 - n=12 calibration (exact generate-and-prune to depth 5) stopped after 35 min at depth 4 to free CPU; depth-2/3 counts matched Wang
   exactly (41, 1502). Depth 4/5 counts: INCONCLUSIVE (not needed for the search; can be rerun when the machine is idle).
 - Launching run A: seed 6-layer prefixes, best 8, depth 13 (7 SAT layers), minisat, 1800 s each, 4 jobs.
+
+## Run B result — NEGATIVE (17:40 UTC)
+runs/n30_B_seed_L7_minisat: 8 prefixes (7 layers, |out| 928,928,928,928,940,940,940,940), 6 SAT layers, minisat: all 8 UNSAT in 8-12 s
+(CNFs ~65k vars, ~2.0M clauses). The greedy 7th layer over-commits; with these 7-layer prefixes no 13-layer completion exists.
+Next: run A (6-layer prefixes, |out| 1699..1977, 7 SAT layers) and an encoder calibration on Wang's own 28-channel 6-layer prefixes.
+
+## Encoder calibration at n=28 — VERIFIED (17:43 UTC)
+runs/calib_wang_n28d6_minisat: my `snt cnf` (own window permutation, own encoding) on Wang's own 6-layer 28-channel prefixes
+(extracted from his generated/n28d6.pb; |out| = 928 each; CNFs 73k vars / 2.25M clauses): prefix 0000 SAT with minisat in 102 s,
+decoded (untangling 45 reversed comparators) to a reflection-symmetric 28-channel depth-13 sorting network (raw size 176).
+So the whole own chain (cnf -> minisat -> decode) reproduces Wang's result independently of his code; negatives from this encoder
+are meaningful. Note the coincidence: Wang's 6-layer 28-channel prefixes and our greedy 7-layer 30-channel prefixes both have |out| = 928,
+yet the former are completable in 7 more layers and the latter are not in 6.
