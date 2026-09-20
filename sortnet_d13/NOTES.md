@@ -155,3 +155,10 @@ Greedy 6th layer (keep 64 across all 4) running -> run F.
 - keep-4 14-channel prefixes: 8 with |out| 66,69,71,72x5 (9 s). Stacked with VV16 both nestings: 32 prefixes, |out| 5478..5976.
   Greedy 6th layer over the whole pool (keep 64, 7 min): best 4224 -> 2385 -> 1853 (saturated after 6 pairs); 66 prefixes, 1853..1973.
   The g1 stacks alone gave 1983. Run F (18:45): top 4 of the pool, 7 SAT layers, minisat 7200 s each, 4 jobs.
+
+## Diagnostic: greedy 7th layer on Wang's completable 28-channel prefixes — 18:31 UTC
+runs/calib_wang_L7: Wang's 8 six-layer prefixes (|out| 928, all SAT in 7 layers) + greedy 7th layer (keep 64; |out| -> 530..541),
+then 6 SAT layers: 8/8 UNSAT in 4-5 s. Conclusion: a greedy min-|out| 7th layer generically destroys completability, so the fast
+UNSATs of runs B/D/E are NOT evidence about the 6-layer 30-channel prefixes. Only "6 greedy layers + 7 SAT layers" (Wang's
+configuration) is a fair test; for n=30 those instances have ~1700-1900 inputs (2x Wang's) and did not finish in 1800 s (run A).
+Run F gives 7200 s to the 4 best 16+14 prefixes.

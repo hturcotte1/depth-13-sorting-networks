@@ -48,3 +48,6 @@ gen: depth 3 -> 2007 non-redundant prefixes (396.9 s); best |out| = 220
   prune pass 2/2: 33673 remain
   prune pass 2/2: 34724 remain
   prune pass 1/2: 38431 remain
+  prune pass 1/2: 37161 remain
+  prune pass 2/2: 36750 remain
+  prune pass 2/2: 35374 remain
