@@ -1,2 +1,0 @@
-=== run n30_A_seed_L6_minisat started 2026-09-20T17:25:54Z on vm
-args: lib=runs/n30_seed/vv_del_L6.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1800 limit=8 jobs=4 extra=''

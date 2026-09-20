@@ -31,7 +31,7 @@ if [ "$GL" -gt 0 ]; then
   echo "greedy extension took $(( $(date +%s) - T0 )) s"
   CUR=$RUN/prefix_greedy.txt
 fi
-$SNT sizes --in "$CUR" | head -n "$LIMIT" > "$RUN/prefix_sizes.txt"
+$SNT sizes --in "$CUR" --limit "$LIMIT" > "$RUN/prefix_sizes.txt"
 echo "output-set sizes of the prefixes to be solved:"; cut -d' ' -f1,2 "$RUN/prefix_sizes.txt" | tr '\n' ';'; echo
 T0=$(date +%s)
 $SNT cnf --in "$CUR" --sym --depth "$DEPTH" --outdir "$RUN/cnf" --limit "$LIMIT" $EXTRA

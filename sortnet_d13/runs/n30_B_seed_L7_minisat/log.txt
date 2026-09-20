@@ -1,0 +1,14 @@
+=== run n30_B_seed_L7_minisat started 2026-09-20T17:38:35Z on vm
+args: lib=runs/n30_seed/vv_del_L7.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1800 limit=8 jobs=4 extra=''
+output-set sizes of the prefixes to be solved:
+0 928;1 928;2 928;3 928;4 940;5 940;6 940;7 940;
+cnf 0000: |out|=928 window_sum=8890 max=27 vars=66462 clauses=2084134 (0.2 s)
+cnf 0001: |out|=928 window_sum=8838 max=27 vars=66098 clauses=2038406 (0.2 s)
+cnf 0002: |out|=928 window_sum=8898 max=26 vars=66518 clauses=2087270 (0.2 s)
+cnf 0003: |out|=928 window_sum=8910 max=27 vars=66602 clauses=2079446 (0.2 s)
+cnf 0004: |out|=940 window_sum=8740 max=27 vars=65412 clauses=1989730 (0.2 s)
+cnf 0005: |out|=940 window_sum=8678 max=26 vars=64978 clauses=1955238 (0.2 s)
+cnf 0006: |out|=940 window_sum=8748 max=27 vars=65468 clauses=1996034 (0.2 s)
+cnf 0007: |out|=940 window_sum=8750 max=27 vars=65482 clauses=2001174 (0.2 s)
+cnf generation took 32 s
+solving 8 instances with minisat, timeout 1800s, 4 jobs

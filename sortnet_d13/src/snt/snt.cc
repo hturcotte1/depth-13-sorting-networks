@@ -128,16 +128,18 @@ int cmd_cnf() {
   int depth = argi("depth", 0);
   std::string outdir = arg("outdir");
   std::mt19937 gen(argi("seed", 1));
-  std::vector<Net> nets = load_nets(arg("in"), argi("n", 0), true);
+  std::vector<Net> nets = load_nets(arg("in"), argi("n", 0), false);
   if (flag("limit") && (int)nets.size() > argi("limit", 0)) nets.resize(argi("limit", 0));
+  for (auto &x : nets) x.outputs = compute_outputs(x);
   std::filesystem::create_directories(outdir);
   int start = argi("start", 0);
   for (int idx = start; idx < (int)nets.size(); idx++) {
     const Net &net = nets[idx];
     int n = net.n;
     CHECK(depth > net.depth());
-    char name[64];
-    snprintf(name, sizeof name, "%s/%04d.cnf", outdir.c_str(), idx);
+    char num[16];
+    snprintf(num, sizeof num, "%04d", idx);
+    std::string name = outdir + "/" + num + ".cnf";
     if (std::filesystem::exists(name)) continue;
     double t0 = now();
     std::vector<int> perm(n);
@@ -244,7 +246,9 @@ int cmd_info() {
 }
 
 int cmd_sizes() {
-  std::vector<Net> nets = load_nets(arg("in"), argi("n", 0), true);
+  std::vector<Net> nets = load_nets(arg("in"), argi("n", 0), false);
+  if (flag("limit") && (int)nets.size() > argi("limit", 0)) nets.resize(argi("limit", 0));
+  for (auto &x : nets) x.outputs = compute_outputs(x);
   for (size_t i = 0; i < nets.size(); i++) printf("%zu %zu %s\n", i, nets[i].outputs.size(), nets[i].to_string().c_str());
   return 0;
 }
