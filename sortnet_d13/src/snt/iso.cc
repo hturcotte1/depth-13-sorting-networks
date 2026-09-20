@@ -177,9 +177,10 @@ std::pair<std::vector<Out>, std::vector<int>> sort_by_weight(int n, const std::v
   return {r, inverse_perm(inv)};
 }
 
-std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool fast, bool symmetric, std::mt19937 &gen, int threads) {
-  int N0 = outs.size();
-  for (int i = 1; i < N0; i++) CHECK(outs[i - 1].size() <= outs[i].size());
+std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> &orig, bool fast, bool symmetric, std::mt19937 &gen, int threads) {
+  int N0 = orig.size();
+  for (int i = 1; i < N0; i++) CHECK(orig[i - 1].size() <= orig[i].size());
+  std::vector<std::vector<Out>> outs = orig;  // working copy (permuted, compacted)
   // idx[i] = original index of the i-th surviving set; sets are compacted after every pass
   std::vector<int> idx(N0);
   for (int i = 0; i < N0; i++) idx[i] = i;
@@ -278,15 +279,14 @@ std::vector<Net> remove_redundant(std::vector<Net> nets, bool symmetric, bool fa
   int n = nets[0].n;
   std::vector<std::vector<Out>> outs;
   outs.reserve(nets.size());
-  for (auto &x : nets) outs.push_back(std::move(x.outputs));  // outputs are moved out (memory)
-  std::vector<bool> red = find_redundant(n, std::move(outs), fast, symmetric, gen, threads);
+  for (auto &x : nets) outs.push_back(std::move(x.outputs));  // moved out; moved back for survivors
+  std::vector<bool> red = find_redundant(n, outs, fast, symmetric, gen, threads);
   std::vector<Net> r;
   for (size_t i = 0; i < nets.size(); i++)
-    if (!red[i]) r.push_back(std::move(nets[i]));
-  nets.clear();
-  nets.shrink_to_fit();
-  // recompute the (unpermuted) output sets of the survivors
-  parallel_for(r.size(), threads, [&](int i) { r[i].outputs = compute_outputs(r[i]); });
+    if (!red[i]) {
+      nets[i].outputs = std::move(outs[i]);
+      r.push_back(std::move(nets[i]));
+    }
   return r;
 }
 

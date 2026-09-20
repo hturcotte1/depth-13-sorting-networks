@@ -91,3 +91,26 @@ All tool processes share one cgroup with memory.limit_in_bytes = 14,345,912,320 
 (~9 GB during n=12 depth-4 pruning) + my calibration (4.7 GB) + n=16 greedy hit it and the kernel killed my two snt processes.
 Mitigation implemented in src/snt: outputs moved (not copied) into the pruner, survivors compacted after every pass and their
 output sets recomputed, per-worker candidate buffers flushed with a fast prune when they exceed a memory budget.
+
+## 16-channel prefix (own tool) — 16:52 UTC
+`snt gen --n 16 --sym --depth 5 --keep 1,1,1,1` (1 thread, 141 s): depth 2/3/4/5 best |out| = 1296/400/168/83, two depth-5 prefixes
+with |out|=83 (the first is Van Voorhis's 4-cube + weight-matched 5th layer, identical to data/prefixes/n16_vv5.txt), matching Wang's
+"best 2 prefixes for 16 channels". Saved: runs/n16/n16d5_greedy1.txt.
+Dobbelaere's 28/155/14, 30/172/14, 32/185/14 networks are reflection-symmetric; 29/166/14 is not.
+
+## Solver comparison on Wang's n=28 CNFs (runs/solver_calib) — 17:02 UTC
+Instances 0001 and 0003 from the Phase 1 run (50 MB each, ~1000 inputs, 7 layers). Machine oversubscribed (2 generators + 4 solvers on 4 cores).
+| solver | 0003 | 0001 |
+|---|---|---|
+| minisat 2.2 (Phase 1 run, 4 parallel) | 26.7 s | 39.0 s |
+| kissat 4.0.4 | 528 s | 541 s |
+| cadical 3.0.1 | 813 s | 1184 s |
+MiniSat is >10x faster on these instances (consistent with Wang's choice). Plan: MiniSat primary, Kissat secondary on stragglers.
+
+## First n=30 experiment: seed prefix VV16+VV16 nested minus channels {0,31} — 17:30 UTC
+- 5 layers, |out| = 6723. Greedy 6th layer (snt extend, keep 64, 1 thread, 10m23s): rounds 0..6 add 7 mirrored comparator pairs,
+  best |out| 5146 -> 3968 -> 3136 -> 2499 -> 2193 -> 1935 -> 1699; rounds 7..14 add nothing (layer saturated). 65 prefixes kept,
+  |out| range 1699..2230. (Wang's 28-channel 6-layer prefix: ~900.) Saved runs/n30_seed/vv_del_L6.txt.
+- n=12 calibration (exact generate-and-prune to depth 5) stopped after 35 min at depth 4 to free CPU; depth-2/3 counts matched Wang
+  exactly (41, 1502). Depth 4/5 counts: INCONCLUSIVE (not needed for the search; can be rerun when the machine is idle).
+- Launching run A: seed 6-layer prefixes, best 8, depth 13 (7 SAT layers), minisat, 1800 s each, 4 jobs.

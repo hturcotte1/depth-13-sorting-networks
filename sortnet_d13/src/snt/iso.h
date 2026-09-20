@@ -13,7 +13,8 @@ std::pair<std::vector<Out>, std::vector<int>> sort_by_weight(int n, const std::v
 
 // outs must be sorted by size. Returns is_redundant[i]: some j with
 // (|out_j|,j) < (|out_i|,i) has sigma(out_j) subset of out_i or of ~out_i.
-std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> outs, bool fast, bool symmetric, std::mt19937 &gen, int threads);
+// outs is not modified (a working copy is permuted/compacted internally).
+std::vector<bool> find_redundant(int n, std::vector<std::vector<Out>> &outs, bool fast, bool symmetric, std::mt19937 &gen, int threads);
 
 // RemoveRedundantNetworks + CleanUp(keep_best) as in Wang's code.
 std::vector<Net> remove_redundant(std::vector<Net> nets, bool symmetric, bool fast, std::mt19937 &gen, int threads);
