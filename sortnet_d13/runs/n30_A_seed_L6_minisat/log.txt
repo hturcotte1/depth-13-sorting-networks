@@ -12,3 +12,7 @@ cnf 0006: |out|=1941 window_sum=21288 max=27 vars=175241 clauses=6162510 (0.7 s)
 cnf 0007: |out|=1977 window_sum=21664 max=27 vars=178249 clauses=6224344 (0.8 s)
 cnf generation took 35 s
 solving 8 instances with minisat, timeout 1800s, 4 jobs
+18:11:06 0000.cnf TIMEOUT 1800.1s 
+18:11:06 0002.cnf TIMEOUT 1800.2s 
+18:11:06 0001.cnf TIMEOUT 1800.2s 
+18:11:06 0003.cnf TIMEOUT 1800.2s 

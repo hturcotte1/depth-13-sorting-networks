@@ -1,0 +1,52 @@
+  prune pass 1/2: 5660 remain
+  prune pass 2/2: 5344 remain
+  prune pass 1/2: 4247 remain
+  prune pass 2/2: 4084 remain
+extend: total generated 17586, 257 after local pruning; final clean_up (keep=64)
+  prune pass 1/2: 256 remain
+  prune pass 2/2: 253 remain
+  prune pass 1/6: 128 remain
+  prune pass 2/6: 127 remain
+  prune pass 3/6: 126 remain
+  prune pass 4/6: 126 remain
+  prune pass 5/6: 126 remain
+  prune pass 6/6: 122 remain
+extend: layer +1 round 0: 64 networks, best |out|=1493 worst=1625 (15.1 s)
+  prune pass 1/2: 6613 remain
+  prune pass 2/2: 6189 remain
+extend: total generated 12548, 267 after local pruning; final clean_up (keep=64)
+  prune pass 1/2: 249 remain
+  prune pass 2/2: 239 remain
+  prune pass 1/6: 124 remain
+  prune pass 2/6: 122 remain
+  prune pass 3/6: 121 remain
+  prune pass 4/6: 121 remain
+  prune pass 5/6: 121 remain
+  prune pass 6/6: 120 remain
+extend: layer +1 round 1: 66 networks, best |out|=1320 worst=1404 (5.9 s)
+  prune pass 1/2: 4998 remain
+  prune pass 2/2: 4702 remain
+extend: total generated 8863, 261 after local pruning; final clean_up (keep=64)
+  prune pass 1/2: 239 remain
+  prune pass 2/2: 228 remain
+  prune pass 1/6: 126 remain
+  prune pass 2/6: 123 remain
+  prune pass 3/6: 121 remain
+  prune pass 4/6: 118 remain
+  prune pass 5/6: 118 remain
+  prune pass 6/6: 114 remain
+extend: layer +1 round 2: 65 networks, best |out|=1186 worst=1250 (3.0 s)
+extend: total generated 5716, 5716 after local pruning; final clean_up (keep=64)
+  prune pass 1/2: 3437 remain
+  prune pass 2/2: 3143 remain
+  prune pass 1/6: 116 remain
+  prune pass 2/6: 111 remain
+  prune pass 3/6: 108 remain
+  prune pass 4/6: 108 remain
+  prune pass 5/6: 104 remain
+  prune pass 6/6: 99 remain
+extend: layer +1 round 3: 66 networks, best |out|=1080 worst=1140 (1.8 s)
+
+real	16m47.008s
+user	4m11.011s
+sys	0m27.876s

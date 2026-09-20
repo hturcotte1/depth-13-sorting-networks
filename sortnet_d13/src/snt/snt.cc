@@ -111,7 +111,8 @@ int cmd_extend() {
       if (sym) CHECK(x.is_symmetric());
       x.add_layer();
     }
-    for (int round = 0; round < n / 2; round++) {
+    int rounds = argi("rounds", n / 2);  // stop after this many comparator(-pair) additions (partial layer)
+    for (int round = 0; round < rounds; round++) {
       double t0 = now();
       nets = extend_nets(nets, sym, true, keep, gen, threads, 1 << 30);
       fprintf(stderr, "extend: layer +%d round %d: %zu networks, best |out|=%zu worst=%zu (%.1f s)\n", L + 1, round,
@@ -155,9 +156,16 @@ int cmd_cnf() {
     long long ws = 0;
     int wm = 0;
     window_stats(n, outs, &ws, &wm);
-    Cnf f = build_cnf(n, depth - net.depth(), outs, sym, argi("subnet", -1));
+    bool open_last = flag("open_last");
+    std::vector<int> forbid0;
+    if (open_last)
+      for (int c = 0; c < n; c++)
+        if (net.layers.back()[c] != -1) forbid0.push_back(perm[c]);
+    int d_sat = depth - net.depth() + (open_last ? 1 : 0);
+    Cnf f = build_cnf(n, d_sat, outs, sym, argi("subnet", -1), forbid0);
     std::vector<std::string> header = {"n " + std::to_string(n), "sym " + std::to_string(sym), "depth " + std::to_string(depth),
-                                       "prefix_depth " + std::to_string(net.depth()), "prefix " + net.to_string()};
+                                       "prefix_depth " + std::to_string(net.depth()), "open_last " + std::to_string(open_last),
+                                       "prefix " + net.to_string()};
     std::string ps = "perm";
     for (int p : perm) ps += " " + std::to_string(p);
     header.push_back(ps);
@@ -180,7 +188,7 @@ int cmd_decode() {
   int n = m.n;
   Net prefix = parse_net(n, m.prefix_str);
   prefix.outputs = compute_outputs(prefix);
-  int d = m.depth - prefix.depth();
+  int d = m.depth - prefix.depth() + (m.open_last ? 1 : 0);
   Net suffix(n, d);
   for (int v : lits) {
     auto it = m.var2comp.find(v);
@@ -201,7 +209,28 @@ int cmd_decode() {
   int untangled = 0;
   Net suffix_orig = permute_net(suffix, inv, &untangled);
   Net full = prefix;
-  for (int l = 0; l < d; l++) {
+  int l0 = 0;
+  if (m.open_last) {  // merge suffix layer 0 into the prefix's (partially filled) last layer
+    Net base = prefix;
+    base.layers.pop_back();
+    base.outputs = compute_outputs(base);
+    for (int i = 0; i < n; i++)
+      if (suffix_orig.layers[0][i] > i) {
+        CHECK(prefix.layers.back()[i] == -1 && prefix.layers.back()[suffix_orig.layers[0][i]] == -1);
+        base.layers.back()[i] = suffix_orig.layers[0][i];  // placeholder to reuse add_comp below
+      }
+    // rebuild: base + merged layer
+    full = base;
+    full.add_layer();
+    for (int i = 0; i < n; i++) {
+      int j = prefix.layers.back()[i];
+      if (j > i) full.add_comp(i, j);
+      j = suffix_orig.layers[0][i];
+      if (j > i) full.add_comp(i, j);
+    }
+    l0 = 1;
+  }
+  for (int l = l0; l < d; l++) {
     full.add_layer();
     for (int i = 0; i < n; i++)
       if (suffix_orig.layers[l][i] > i) full.add_comp(i, suffix_orig.layers[l][i]);

@@ -26,12 +26,16 @@ struct Cnf {
 struct CnfMeta {
   int n = 0, depth = 0, prefix_depth = 0;
   bool sym = false;
+  bool open_last = false;
   std::vector<int> perm;
   std::string prefix_str;
   std::map<int, std::array<int, 3>> var2comp;
 };
 
-Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels);
+// forbid0: channels (in the permuted numbering) that may not be used in suffix layer 0
+// (used when the prefix's last layer is only partially filled and SAT may complete it).
+Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels,
+              const std::vector<int> &forbid0 = {});
 void write_cnf(const Cnf &f, const std::string &path, const std::vector<std::string> &header);
 CnfMeta read_cnf_meta(const std::string &path);
 std::vector<int> read_solution(const std::string &path, bool *sat);

@@ -10,3 +10,33 @@ cnf generation took 6 s
 solving 4 instances with minisat, timeout 1800s, 2 jobs
 17:42:40 0000.cnf SAT 102.1s # raw: n=28 depth=13 size=176 sorting=1 symmetric=1 |out|=29 untangled=45
 # simplified: n=28 depth=13 size=170 symmetric=1
+17:47:32 0002.cnf SAT 285.7s # raw: n=28 depth=13 size=178 sorting=1 symmetric=1 |out|=29 untangled=33
+# simplified: n=28 depth=13 size=173 symmetric=1
+17:48:10 0001.cnf SAT 433.3s # raw: n=28 depth=13 size=177 sorting=1 symmetric=1 |out|=29 untangled=39
+# simplified: n=28 depth=13 size=166 symmetric=1
+17:53:23 0003.cnf SAT 347.7s # raw: n=28 depth=13 size=175 sorting=1 symmetric=1 |out|=29 untangled=31
+# simplified: n=28 depth=13 size=163 symmetric=1
+done: 4 SAT of 4 in 754s wall
+solving took 754 s
+--- verifying /home/user/depth-13-sorting-networks/sortnet_d13/runs/calib_wang_n28d6_minisat/cnf/0000.minisat.net.txt
+# n=28 size=170 depth=13
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+--- verifying /home/user/depth-13-sorting-networks/sortnet_d13/runs/calib_wang_n28d6_minisat/cnf/0001.minisat.net.txt
+# n=28 size=166 depth=13
+RESULT: SORTS all 2^28 binary inputs (n=28, size=166, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=166, depth=13)
+--- verifying /home/user/depth-13-sorting-networks/sortnet_d13/runs/calib_wang_n28d6_minisat/cnf/0002.minisat.net.txt
+# n=28 size=173 depth=13
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+--- verifying /home/user/depth-13-sorting-networks/sortnet_d13/runs/calib_wang_n28d6_minisat/cnf/0003.minisat.net.txt
+# n=28 size=163 depth=13
+RESULT: SORTS all 2^28 binary inputs (n=28, size=163, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=163, depth=13)
+=== run calib_wang_n28d6_minisat finished 2026-09-20T17:53:54Z
+summary: 4 instances: 4 SAT, 0 UNSAT, 0 TIMEOUT
+  0000.cnf minisat SAT 102s
+  0001.cnf minisat SAT 433s
+  0002.cnf minisat SAT 286s
+  0003.cnf minisat SAT 348s

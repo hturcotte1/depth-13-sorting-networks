@@ -1,0 +1,1 @@
+{"cnf": "0001.cnf", "solver": "kissat", "status": "SAT", "time": 0.1, "timeout": 60.0, "host": "vm", "decode_rc": -6, "decode_head": "", "net": "runs/smoke/ol/0001.kissat.net.txt"}

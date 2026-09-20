@@ -27,7 +27,8 @@ static void a_implies_b_eq_c_and_d(Cnf &f, int a, int b, int c, int d) {
 // vector in `outs` (given in the permuted channel order).
 // last_span: allowed spans for the last layers (default Wang/CCEMS: last layer
 // span 1, second-to-last span <= 3).
-Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels) {
+Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels,
+              const std::vector<int> &forbid0) {
   if (sym) CHECK(n % 2 == 0);
   Cnf f;
   const int INVALID = 0;
@@ -82,6 +83,8 @@ Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_c
       }
       f.iff_or(used[k][i], lits);
     }
+  // partially filled prefix layer: its channels are not available in suffix layer 0
+  for (int c : forbid0) f.add({-used[0][c]});
   // one_down[k][i][j]: exists g[k][i][l], i<l<=j ; one_up[k][i][j]: exists g[k][l][j], i<=l<j
   std::vector<std::vector<std::vector<int>>> one_down(d, std::vector<std::vector<int>>(n, std::vector<int>(n, INVALID)));
   std::vector<std::vector<std::vector<int>>> one_up = one_down;
@@ -192,6 +195,7 @@ CnfMeta read_cnf_meta(const std::string &path) {
     if (line.rfind("p cnf", 0) == 0) break;
     if (line.rfind("c n ", 0) == 0) m.n = atoi(line.c_str() + 4);
     else if (line.rfind("c sym ", 0) == 0) m.sym = atoi(line.c_str() + 6);
+    else if (line.rfind("c open_last ", 0) == 0) m.open_last = atoi(line.c_str() + 12);
     else if (line.rfind("c depth ", 0) == 0) m.depth = atoi(line.c_str() + 8);
     else if (line.rfind("c prefix_depth ", 0) == 0) m.prefix_depth = atoi(line.c_str() + 15);
     else if (line.rfind("c perm ", 0) == 0) {

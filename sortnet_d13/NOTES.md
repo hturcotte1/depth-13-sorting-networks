@@ -127,3 +127,17 @@ decoded (untangling 45 reversed comparators) to a reflection-symmetric 28-channe
 So the whole own chain (cnf -> minisat -> decode) reproduces Wang's result independently of his code; negatives from this encoder
 are meaningful. Note the coincidence: Wang's 6-layer 28-channel prefixes and our greedy 7-layer 30-channel prefixes both have |out| = 928,
 yet the former are completable in 7 more layers and the latter are not in 6.
+Calibration complete: 4/4 SAT (102, 433, 286, 348 s with 2 parallel jobs on a loaded machine); decoded networks n=28 depth 13,
+sizes 170/166/173/163 after stripping+relayering; each passes verify_c and verify_py (runs/calib_wang_n28d6_minisat/log.txt).
+
+## Run A result — INCONCLUSIVE (18:12 UTC)
+runs/n30_A_seed_L6_minisat: 6-layer seed prefixes, 7 SAT layers (CNFs 148k-178k vars, 5.0-6.2M clauses). Instances 0000-0003
+(|out| 1699, 1735, 1915, 1915): minisat TIMEOUT at 1800 s each (machine shared with 3 other jobs). Instances 0004-0007 not run
+(killed to free CPU for the partial-layer experiments). Follow-up: longer budget for 0000/0001 later.
+Partial 7th layer (greedy, stopped after 2/3/4 mirrored pairs): best |out| 1320 / 1186 / 1080 (runs/n30_seed/vv_del_L6p{2,3,4}.txt).
+Run D (18:15): p3 prefixes (7th layer frozen with 3 pairs), 6 SAT layers, minisat 1800 s, 4 jobs.
+
+## n=32 seed greedy extension (VV16+VV16 nested, |out| 6889) — 18:15 UTC
+snt extend keep 64, 2 layers, 1 thread (31 min, loaded machine): layer 6 best |out| 5312 -> ... -> 1787 (7 pairs, saturated);
+layer 7: 1581 -> ... -> 992 (7 pairs). 83 seven-layer prefixes with |out| 992..1026 (runs/n32_seed/vv_nested_L7.txt; six-layer set in .L1).
+Same shape as n=30 (6723 -> 1699 -> 928).
