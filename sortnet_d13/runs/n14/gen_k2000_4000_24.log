@@ -1,0 +1,9 @@
+gen: n=14 sym=1 start depth 1 with 4 networks
+  prune pass 1/2: 907 remain
+  prune pass 2/2: 678 remain
+extend: total generated 22730, 10378 after local pruning; final clean_up (keep=0)
+  prune pass 1/6: 923 remain
+  prune pass 2/6: 729 remain
+  prune pass 3/6: 619 remain
+  prune pass 4/6: 544 remain
+  prune pass 5/6: 449 remain

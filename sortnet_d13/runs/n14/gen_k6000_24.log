@@ -1,0 +1,4 @@
+gen: n=14 sym=1 start depth 1 with 4 networks
+extend: total generated 22730, 10384 after local pruning; final clean_up (keep=0)
+gen: depth 2 -> 69 non-redundant prefixes (53.9 s); best |out| = 648
+extend: total generated 325703, 38723 after local pruning; final clean_up (keep=0)

@@ -215,10 +215,8 @@ int cmd_decode() {
     base.layers.pop_back();
     base.outputs = compute_outputs(base);
     for (int i = 0; i < n; i++)
-      if (suffix_orig.layers[0][i] > i) {
+      if (suffix_orig.layers[0][i] > i)
         CHECK(prefix.layers.back()[i] == -1 && prefix.layers.back()[suffix_orig.layers[0][i]] == -1);
-        base.layers.back()[i] = suffix_orig.layers[0][i];  // placeholder to reuse add_comp below
-      }
     // rebuild: base + merged layer
     full = base;
     full.add_layer();
