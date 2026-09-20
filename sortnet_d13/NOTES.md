@@ -152,3 +152,6 @@ layer-7 pairs is not completable; whether the 6-layer prefixes are completable a
 Quick 14-channel prefixes: `snt gen --n 14 --sym --depth 5 --keep 1,1,1,1` -> depth 2/3/4/5 best |out| 648/220/110/69 (1 prefix, 8 s).
 Stacked with the two VV16 prefixes (83): 16-outer/14-inner and 14-outer/16-inner, |out| = 83*69 = 5727 each (4 stacked prefixes).
 Greedy 6th layer (keep 64 across all 4) running -> run F.
+- keep-4 14-channel prefixes: 8 with |out| 66,69,71,72x5 (9 s). Stacked with VV16 both nestings: 32 prefixes, |out| 5478..5976.
+  Greedy 6th layer over the whole pool (keep 64, 7 min): best 4224 -> 2385 -> 1853 (saturated after 6 pairs); 66 prefixes, 1853..1973.
+  The g1 stacks alone gave 1983. Run F (18:45): top 4 of the pool, 7 SAT layers, minisat 7200 s each, 4 jobs.
