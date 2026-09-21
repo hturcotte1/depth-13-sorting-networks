@@ -1,0 +1,8 @@
+=== run n30_G_16_14_g4_L5_8layers_minisat started 2026-09-21T01:36:08Z on vm
+args: lib=runs/n30_16_14/stack_g4_top2_L5.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=14400 limit=2 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 5478;1 5478;
+cnf 0000: |out|=5478 window_sum=66260 max=29 vars=601982 clauses=21832822 (2.9 s)
+cnf 0001: |out|=5478 window_sum=66260 max=29 vars=601982 clauses=21838246 (2.5 s)
+cnf generation took 13 s
+solving 2 instances with minisat, timeout 14400s, 2 jobs

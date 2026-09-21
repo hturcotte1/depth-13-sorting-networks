@@ -162,3 +162,10 @@ then 6 SAT layers: 8/8 UNSAT in 4-5 s. Conclusion: a greedy min-|out| 7th layer 
 UNSATs of runs B/D/E are NOT evidence about the 6-layer 30-channel prefixes. Only "6 greedy layers + 7 SAT layers" (Wang's
 configuration) is a fair test; for n=30 those instances have ~1700-1900 inputs (2x Wang's) and did not finish in 1800 s (run A).
 Run F gives 7200 s to the 4 best 16+14 prefixes.
+
+## Run F result — NEGATIVE (18:39 UTC)
+runs/n30_F_16_14_g4_L6_minisat: the 4 best 16+14 six-layer prefixes (|out| 1853,1853,1857,1857; CNFs ~160k vars, 5.3M clauses),
+7 SAT layers, minisat: 4/4 UNSAT in 501-520 s. So Wang's exact recipe (stack, greedy 6th layer by min |out|, SAT for the rest)
+fails for these four 30-channel prefixes. Compare: run A's seed prefixes (1699..1915) did not resolve in 1800 s.
+Next: run G = 8 SAT layers directly on the two best 5-layer stacks (|out| 5478; greedy 6th layer removed), 14400 s each, 2 jobs;
+the n=14 exhaustive-ish library (keep ,2000,4000,24) resumed with 2 threads; n=15 generator kept paused.
