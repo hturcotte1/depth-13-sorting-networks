@@ -169,3 +169,18 @@ runs/n30_F_16_14_g4_L6_minisat: the 4 best 16+14 six-layer prefixes (|out| 1853,
 fails for these four 30-channel prefixes. Compare: run A's seed prefixes (1699..1915) did not resolve in 1800 s.
 Next: run G = 8 SAT layers directly on the two best 5-layer stacks (|out| 5478; greedy 6th layer removed), 14400 s each, 2 jobs;
 the n=14 exhaustive-ish library (keep ,2000,4000,24) resumed with 2 threads; n=15 generator kept paused.
+Run G (01:36 UTC, 21 Sep): 2 instances, 602k vars / 21.8M clauses each, minisat 14400 s, 2 jobs (n=14 library resumed on the other 2 cores).
+Session note: the harness paused between 18:40 and 01:30 UTC; the generators were SIGSTOPped during that time (no compute lost or gained).
+Planned next if G is UNSAT: (a) other 14-channel prefixes from the exhaustive-ish library; (b) 15+15 mirrored; (c) sweep all 66
+greedy-6 prefixes with 900 s each (variance play); (d) n=32 analog (VV16+VV16, |out| 6889 -> greedy 1787 -> 7 SAT layers).
+
+## Diagnostic: block completability (02:11 UTC) — heuristic only, does NOT discriminate
+Tested with the SAT encoder whether each 5-layer block prefix can be completed (reflection-symmetrically) to a depth-optimal
+sorter of the block alone (16 channels: depth 9; 14: depth 9; 12: depth 8), all instances < 0.1 s:
+- VV16 variant 0000 (4-cube + weight-matched layer): symmetric depth-9 completion UNSAT; non-symmetric completion SAT (Van Voorhis's own network).
+  VV16 variant 0001 (the other 83-output prefix): symmetric completion SAT.
+- 14-channel keep-4 prefixes (|out| 66,69,71,72,72,72,72,72) and keep-1 (69): SAT for 66, 69, 72, 72, 69; UNSAT for 71, 72, 72, 72.
+- Wang's 8 successful 28-channel prefixes: all 8 outer 12-blocks symmetric-depth-8 completable; inner 16-blocks 4 UNSAT / 4 SAT
+  (both VV variants occur among his completable prefixes). So block completability is not necessary for the stacked network, as expected
+  (sorting and merging interleave), and cannot explain runs A/F.
+- Run F's 4 prefixes all use the 16-outer nesting with VV variant 0001 (symmetric-completable) and the |out14|=66 prefix (completable).

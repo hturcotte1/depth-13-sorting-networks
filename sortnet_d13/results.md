@@ -35,6 +35,7 @@ same SAT chain (`tests/test_pipeline.py`).
 | E | as D but layer 7 open for SAT on the 24 free channels | 6 (+ open layer) | 1800 s | 8/8 UNSAT in 15–24 s | NEGATIVE |
 | A | S, 6 layers (1699, 1735, 1915, 1915) | 7 | 1800 s | 4/4 TIMEOUT (instances 5–8 not run) | INCONCLUSIVE |
 | F | N4, 6 layers (1853, 1853, 1857, 1857) | 7 | 7200 s | 4/4 UNSAT in 501–520 s | NEGATIVE |
+| G | N4, 5 layers (5478, 5478; the two VV variants × the |out14|=66 prefix), no greedy layer | 8 | 14400 s | running (602k vars, 21.8M clauses) | – |
 Reproduce: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> 4 [--open_last]`; prefix libraries are in `runs/`.
 Calibration of this negative pattern: Wang's own eight 28-channel 6-layer prefixes (all SAT with 7 layers) become 8/8 UNSAT in
 4–5 s after a greedy 7th layer (|out| 928 → 530). Hence runs B/D/E only show that greedy layer-7 choices are incompatible with
