@@ -232,3 +232,17 @@ best 2-layer prefix (9 comparators), suffix <= 22 -> SAT (size 31 = best known (
 ## Run F32 — NEGATIVE (23:25 UTC)
 runs/n32_F_vv_L6_minisat: the 2 best VV16+VV16 nested 6-layer prefixes for n=32 (|out| 1787; CNFs 160k vars / 5.6M clauses), 7 SAT layers,
 minisat: UNSAT in 798 s and 812 s. Wang's recipe transferred to 32 channels fails for these prefixes just as for 30. Next: prefixes 3-4.
+
+## Size reduction for n=28 depth 13 — run S28 (23:31 UTC)
+Wang prefix #0 (83 comparators, 6 layers) + 7 SAT layers with at most 75 suffix comparators (total <= 158), symmetric, WITH the
+normal-form constraints: UNSAT in 989 s. Caveat: psi1 (no two adjacent idle channels in the last layer) forces redundant comparators
+into the count, so this does not yet exclude a 158-comparator network from this prefix. Rerun with `--no_nf` (necessary constraints only;
+valid because the non-redundant version of any network satisfies Lemma 4/6 and is not larger): run S28b.
+Run S28b (23:52 UTC): same with `--no_nf` (necessary constraints only): UNSAT in 1207 s. => From Wang's prefix #0 no reflection-symmetric
+13-layer completion with <= 75 suffix comparators exists; 83+76 = 159 is optimal for that prefix among symmetric completions.
+Single-comparator deletion test (src/prune_single.py) running on the published depth-13 networks for 22..28 channels.
+
+## Run F32b — NEGATIVE (23:57 UTC)
+VV16+VV16 nested 6-layer prefixes #3 and #4 (|out| 1787): UNSAT in 1790 s and 1793 s. Together with F32: the 4 best greedy 6-layer
+prefixes of the 16+16 Van Voorhis family have no reflection-symmetric 13-layer completion.
+Run F5 (23:58): 30-channel 16+14 pool prefixes #5-#12 (|out| 1857..~1900), 7 SAT layers, minisat 1200 s each, 2 jobs (variance test).

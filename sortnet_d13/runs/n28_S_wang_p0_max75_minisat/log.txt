@@ -5,3 +5,9 @@ output-set sizes of the prefixes to be solved:
 cnf 0000: |out|=928 window_sum=8608 max=25 vars=271628 clauses=2654064 (0.3 s)
 cnf generation took 2 s
 solving 1 instances with minisat, timeout 7200s, 1 jobs
+23:30:54 0000.cnf UNSAT 989.0s 
+done: 0 SAT of 1 in 989s wall
+solving took 989 s
+=== run n28_S_wang_p0_max75_minisat finished 2026-09-22T23:30:54Z
+summary: 1 instances: 0 SAT, 1 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 989s

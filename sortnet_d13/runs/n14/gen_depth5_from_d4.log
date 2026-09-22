@@ -35,3 +35,23 @@ extend: 1500/4389 prefixes expanded, 1953409 candidates so far
   prune pass 2/2: 41131 remain
 extend: 2000/4389 prefixes expanded, 2615109 candidates so far
   prune pass 2/2: 42464 remain
+  prune pass 1/2: 46641 remain
+  prune pass 2/2: 41730 remain
+  prune pass 1/2: 47840 remain
+  prune pass 2/2: 42690 remain
+  prune pass 1/2: 47644 remain
+  prune pass 1/2: 48442 remain
+  prune pass 2/2: 42799 remain
+extend: 2500/4389 prefixes expanded, 3310745 candidates so far
+  prune pass 2/2: 43355 remain
+  prune pass 1/2: 46595 remain
+  prune pass 2/2: 41674 remain
+  prune pass 1/2: 48899 remain
+  prune pass 2/2: 43997 remain
+  prune pass 1/2: 46937 remain
+  prune pass 2/2: 41995 remain
+  prune pass 1/2: 48202 remain
+  prune pass 2/2: 43435 remain
+extend: 3000/4389 prefixes expanded, 3984233 candidates so far
+  prune pass 1/2: 47011 remain
+  prune pass 2/2: 42084 remain

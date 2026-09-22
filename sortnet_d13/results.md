@@ -55,10 +55,19 @@ Seed VV16+VV16 nested (|out| 6889; the 5-cube has 7581, the first 5 layers of th
 |---|---|---|---|---|---|
 | K32 | first 7 layers of Dobbelaere's 32/185/14 network (1231) | 6 | 3600 s | UNSAT in 4.2 s | NEGATIVE |
 | F32 | VV16+VV16 nested, 6 layers (1787, 1787) | 7 | 7200 s | 2/2 UNSAT in 798 s and 812 s | NEGATIVE |
-| F32b | VV16+VV16 nested, 6 layers, prefixes #3–#4 (1787) | 7 | 7200 s | running | – |
+| F32b | VV16+VV16 nested, 6 layers, prefixes #3–#4 (1787) | 7 | 7200 s | 2/2 UNSAT in 1790 s and 1793 s | NEGATIVE |
 
 ## 4. Negative / inconclusive results
-(to be filled)
+All SAT-based negatives above are for the stated prefix and for reflection-symmetric completions, with the CCEMS necessary constraints
+(last layer adjacent-only, second-to-last span ≤ 3), which hold for the non-redundant form of any network of the same depth; the control run
+shows the verdict does not depend on the normal-form constraints. No claim is made about prefixes not listed.
+
+### 4.1 Size reduction for 28 channels at depth 13 (Phase 4a)
+| run | setting | result | label |
+|---|---|---|---|
+| S28 | Wang prefix #0 (83 comparators) + 7 layers with ≤ 75 suffix comparators (total ≤ 158), symmetric, with normal forms | UNSAT 989 s | NEGATIVE (under normal forms) |
+| S28b | same with necessary constraints only | UNSAT 1207 s | NEGATIVE: 159 is optimal for this prefix among symmetric completions |
+
 
 ## 5. What a follow-up should try
 Ranked by expected value per CPU-hour, based on the runs above and the literature review (`NOTES.md`, research section):
