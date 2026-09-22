@@ -1,0 +1,2 @@
+=== subnet screen on run F prefix 0 (full instance UNSAT in 520 s) 22:48:50
+=== done 22:48:51

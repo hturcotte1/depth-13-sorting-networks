@@ -1,0 +1,15 @@
+gen: n=14 sym=1 start depth 4 with 4389 networks
+  prune pass 1/2: 43454 remain
+  prune pass 1/2: 45083 remain
+  prune pass 2/2: 38206 remain
+  prune pass 2/2: 39533 remain
+extend: 500/4389 prefixes expanded, 642275 candidates so far
+  prune pass 1/2: 47749 remain
+  prune pass 1/2: 48727 remain
+  prune pass 2/2: 42349 remain
+  prune pass 2/2: 43404 remain
+  prune pass 1/2: 48305 remain
+  prune pass 1/2: 50372 remain
+  prune pass 2/2: 42855 remain
+  prune pass 2/2: 45325 remain
+extend: 1000/4389 prefixes expanded, 1286260 candidates so far

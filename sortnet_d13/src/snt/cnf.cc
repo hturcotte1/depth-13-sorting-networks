@@ -28,7 +28,7 @@ static void a_implies_b_eq_c_and_d(Cnf &f, int a, int b, int c, int d) {
 // last_span: allowed spans for the last layers (default Wang/CCEMS: last layer
 // span 1, second-to-last span <= 3).
 Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels,
-              const std::vector<int> &forbid0) {
+              const std::vector<int> &forbid0, bool no_normal_forms) {
   if (sym) CHECK(n % 2 == 0);
   Cnf f;
   const int INVALID = 0;
@@ -119,12 +119,15 @@ Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_c
     // (i,i+2) in layer d-2 implies (i,i+1) or (i+1,i+2) in layer d-1
     for (int i = 0; i + 2 < n; i++) f.add({-g[d - 2][i][i + 2], g[d - 1][i][i + 1], g[d - 1][i + 1][i + 2]});
   }
-  // no two adjacent unused channels in the last layer
-  for (int i = 0; i + 1 < n; i++) f.add({used[d - 1][i], used[d - 1][i + 1]});
-  if (d >= 2) {
-    for (int i = 0; i + 2 < n; i++) {
-      f.add({-g[d - 1][i][i + 1], used[d - 1][i + 2], used[d - 2][i], used[d - 2][i + 1]});
-      f.add({-g[d - 1][i + 1][i + 2], used[d - 1][i], used[d - 2][i + 1], used[d - 2][i + 2]});
+  if (!no_normal_forms) {
+    // psi1: no two adjacent unused channels in the last layer
+    for (int i = 0; i + 1 < n; i++) f.add({used[d - 1][i], used[d - 1][i + 1]});
+    // psi3 (CCEMS Lemma 9): a last-layer comparator could otherwise be moved up
+    if (d >= 2) {
+      for (int i = 0; i + 2 < n; i++) {
+        f.add({-g[d - 1][i][i + 1], used[d - 1][i + 2], used[d - 2][i], used[d - 2][i + 1]});
+        f.add({-g[d - 1][i + 1][i + 2], used[d - 1][i], used[d - 2][i + 1], used[d - 2][i + 2]});
+      }
     }
   }
   // sort each input

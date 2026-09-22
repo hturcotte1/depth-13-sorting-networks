@@ -184,3 +184,29 @@ sorter of the block alone (16 channels: depth 9; 14: depth 9; 12: depth 8), all 
   (both VV variants occur among his completable prefixes). So block completability is not necessary for the stacked network, as expected
   (sorting and merging interleave), and cannot explain runs A/F.
 - Run F's 4 prefixes all use the 16-outer nesting with VV variant 0001 (symmetric-completable) and the |out14|=66 prefix (completable).
+
+## 22 Sep 22:50 UTC — after a container restart (all processes lost between ~05:00 21 Sep and now)
+- Run G (8 SAT layers on the two 5-layer 16+14 stacks, 602k vars / 21.8M clauses): killed by the restart after ~3 h without a verdict -> INCONCLUSIVE.
+- The research agent's own side experiments (Ehlers 24-ch prefix sym/non-sym, run-F prefix with window<=20/24) were also killed; no results.
+- n=14 library: depth 4 finished (4389 prefixes, best |out| 110, 9.6 h wall incl. pauses); depth 5 restarted from the .d4 file with keep 24 (2 threads).
+- Launched: control run (run F prefix 0, symmetric, WITHOUT the normal-form constraints psi1/psi3; `snt cnf --no_nf`) and run H (same prefix,
+  non-symmetric suffix), 14400 s each, 1 core each.
+
+## Research workflow (5 reports, ~1.5M tokens; synthesis agent failed on usage credits) — key actionable points
+1. Encoding audit (report 0): we use CCEMS phi1-phi4 (necessary) + psi1, psi3a/b (normal forms) + oneUp/oneDown + window encoding + permutation.
+   Not used: psi2a-c (Lemma 8 co-saturation of layer d-1), Theorem 2 (k-block adjacency) beyond the last two layers, sigma1-3 of arXiv:1412.5302,
+   MiniSat probing/cla-decay 0.9999. CAVEAT: psi normal forms are proven for unrestricted networks; soundness under the reflection-symmetry
+   restriction is argued, not proven -> control run without psi launched (above). Our instances (5-6M clauses) are 2-4x CCEMS's largest.
+2. Ehlers' 24-sorter (from his 2017 Kiel thesis, sec. 4.4): 12-ch 5-layer prefix with 34 outputs (beam search, keep 32), two copies SIDE BY SIDE
+   (= mirrored, since the block is symmetric) with the two idle channels joined across ((0,12),(11,23)) -> 1154 outputs; the SAT-found layer 6 is a
+   rank-aligned cross-half merge layer (1,13),(2,14),(3,15),(4,18),(5,19),(6,16),(7,17),(8,20),(9,21),(10,22) -> 479 outputs, whereas greedy
+   comparator-at-a-time gives 572/585 and is structurally different. Completable trajectory 1154->479->235->137->83->54->34->25.
+   Ehlers: greedy prefix construction "often fails because of only a few bad decisions"; suggests limited discrepancy search around greedy.
+3. Calibration (reports 2-4): every known depth-13 completion had <= ~1200 outputs with 7 layers to go (CCEMS 800/840; Ehlers 1154; Wang 928);
+   our 16+14 prefixes have ~1850. Dobbelaere's depth-14 networks: 32/185/14 = two 4-cubes + VV 5th layer + (0,16),(15,31): 28224->6887->1787->1231->
+   547->418->221->129->79->46->33; 30/172/14 = 3-cube | 14-block | 3-cube: 7413->2564->1033 then 7 more layers. A network that fully sorts a
+   16-block before merging needs >= 9+5 = 14 layers, so depth 13 needs cross-block comparators before layer 9 (Wang: layer 6).
+4. No documented attempt at depth 13 for 29-32 exists anywhere (report 4); no lower-bound argument comes within 3 layers of excluding it.
+5. Sound cheap pre-screen (Bundala-Zavodny subnetwork relaxation): SAT with only the prefix outputs of window <= w; UNSAT there implies UNSAT
+   overall. `snt cnf --subnet w` implements it; timing test launched on run F prefix 0 (w = 8, 12, 16, 20).
+6. Completability is not monotone under adding comparators (Knuth ex. 5.3.4-21) -> explains why greedy layer 7 kills completable prefixes.

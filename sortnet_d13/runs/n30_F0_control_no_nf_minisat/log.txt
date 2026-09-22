@@ -1,0 +1,5 @@
+=== control started 2026-09-22T22:47:40Z: run F prefix 0 (16+14, 6 layers, |out| 1853), 7 SAT layers, symmetric, WITHOUT normal-form constraints psi1/psi3
+CHECK failed: f.is_open() at sn.h:208
+solving 0 instances with minisat, timeout 14400s, 1 jobs
+done: 0 SAT of 0 in 0s wall
+=== control finished 2026-09-22T22:47:40Z
