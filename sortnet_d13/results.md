@@ -54,10 +54,25 @@ Seed VV16+VV16 nested (|out| 6889; the 5-cube has 7581, the first 5 layers of th
 | run | prefixes | SAT layers | budget | result | label |
 |---|---|---|---|---|---|
 | K32 | first 7 layers of Dobbelaere's 32/185/14 network (1231) | 6 | 3600 s | UNSAT in 4.2 s | NEGATIVE |
-| F32 | VV16+VV16 nested, 6 layers (1787, 1787) | 7 | 7200 s | running | – |
+| F32 | VV16+VV16 nested, 6 layers (1787, 1787) | 7 | 7200 s | 2/2 UNSAT in 798 s and 812 s | NEGATIVE |
+| F32b | VV16+VV16 nested, 6 layers, prefixes #3–#4 (1787) | 7 | 7200 s | running | – |
 
 ## 4. Negative / inconclusive results
 (to be filled)
 
 ## 5. What a follow-up should try
-(to be filled)
+Ranked by expected value per CPU-hour, based on the runs above and the literature review (`NOTES.md`, research section):
+1. **Give the 6-layer 30/32-channel prefixes the budgets the literature used.** CCEMS spent up to 97,000 s per instance and Bundala et al.
+   24 h; our 1800–7200 s budgets are small for instances 2–4x larger than theirs. The two instances of run G (5-layer stack, 8 free layers,
+   21.8M clauses) and the seed prefixes of run A (1699/1735 outputs) are the natural candidates; on this machine that is days, not hours.
+2. **Replace greedy min-|out| for layer 6 by a beam / limited-discrepancy search that is scored by SAT.** Every fast UNSAT we saw came from a
+   greedy commitment (layers 7 of the seed family, layer 6 of the 16+14 family). Ehlers' completable 24-channel prefix had a SAT-chosen layer 6
+   that greedy does not find. Concretely: keep the 200–500 best layer-6 candidates (not 64), sweep them with a 900 s budget each
+   (UNSAT proofs took 500–650 s at 1853 outputs), and only then invest hours in the survivors.
+3. **Better block prefixes.** For 16+14 the 14-channel block came from keep-1/keep-4 greedy libraries (66–72 outputs); the keep-limited
+   generate-and-prune library (4389 four-layer prefixes) was computed but its five-layer step did not finish in time. Wang's 28-channel
+   success used the true optimum (34/35 outputs) of an exhaustive 12-channel library. Also untried: Green-16 blocks (110 outputs but
+   different structure), the 5-cube prefix for 32 (7581) with a beam-searched layer 6, and 15+15 mirrored with a good 15-channel prefix.
+4. **Drop the symmetry restriction for the suffix** (run H tests this on one prefix); the prefix stays symmetric, the instance doubles.
+5. **Encoding**: add the CCEMS psi2 (Lemma 8) constraints and MiniSat's probing/cla-decay settings they used; both are reported to help.
+6. **Cube-and-conquer** on the layer-7 variables of the best instance to use many cores; this machine had 4.

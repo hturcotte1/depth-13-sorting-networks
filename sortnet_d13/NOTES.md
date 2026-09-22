@@ -228,3 +228,7 @@ completion of that 6-layer prefix exists. Run H (non-symmetric suffix, same pref
 Subnet pre-screen on the same prefix: w=8 SAT 2 s, w=12 SAT 29 s, w=16 > 10 min -> not a useful quick filter here; stopped.
 `snt cnf --max_comps K` implemented (Sinz sequential counter over suffix comparators; mirrored pairs count 2). n=10 check: from the
 best 2-layer prefix (9 comparators), suffix <= 22 -> SAT (size 31 = best known (31,7)), suffix <= 20 -> UNSAT.
+
+## Run F32 — NEGATIVE (23:25 UTC)
+runs/n32_F_vv_L6_minisat: the 2 best VV16+VV16 nested 6-layer prefixes for n=32 (|out| 1787; CNFs 160k vars / 5.6M clauses), 7 SAT layers,
+minisat: UNSAT in 798 s and 812 s. Wang's recipe transferred to 32 channels fails for these prefixes just as for 30. Next: prefixes 3-4.
