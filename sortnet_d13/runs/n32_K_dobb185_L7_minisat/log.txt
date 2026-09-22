@@ -1,0 +1,13 @@
+=== run n32_K_dobb185_L7_minisat started 2026-09-22T23:01:39Z on vm
+args: lib=runs/dobb_prefixes/N32L185D14_L7.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=3600 limit=1 jobs=1 extra=''
+output-set sizes of the prefixes to be solved:
+0 1231;
+cnf 0000: |out|=1231 window_sum=10926 max=22 vars=81284 clauses=2199176 (0.3 s)
+cnf generation took 12 s
+solving 1 instances with minisat, timeout 3600s, 1 jobs
+23:02:07 0000.cnf UNSAT 4.2s 
+done: 0 SAT of 1 in 4s wall
+solving took 4 s
+=== run n32_K_dobb185_L7_minisat finished 2026-09-22T23:02:07Z
+summary: 1 instances: 0 SAT, 1 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 4s

@@ -1,2 +1,4 @@
-=== subnet screen on run F prefix 0 (full instance UNSAT in 520 s) 22:48:50
-=== done 22:48:51
+23:00:06 0000.cnf SAT 2.3s 
+cnf 0000: |out|=1853 window_sum=19302 max=27 vars=82489 clauses=1839166 (1.2 s)
+23:00:52 0000.cnf SAT 28.8s 
+cnf 0000: |out|=1853 window_sum=19302 max=27 vars=117785 clauses=3133386 (3.1 s)

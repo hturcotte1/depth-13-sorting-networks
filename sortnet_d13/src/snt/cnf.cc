@@ -28,7 +28,7 @@ static void a_implies_b_eq_c_and_d(Cnf &f, int a, int b, int c, int d) {
 // last_span: allowed spans for the last layers (default Wang/CCEMS: last layer
 // span 1, second-to-last span <= 3).
 Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels,
-              const std::vector<int> &forbid0, bool no_normal_forms) {
+              const std::vector<int> &forbid0, bool no_normal_forms, int max_comps) {
   if (sym) CHECK(n % 2 == 0);
   Cnf f;
   const int INVALID = 0;
@@ -157,6 +157,34 @@ Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_c
         for (int j = i + 1; j < ce; j++) a_implies_b_eq_c_and_d(f, g[k][i][j], v[k + 1][i], v[k][i], v[k][j]);
       }
     for (int i = cb; i < ce; i++) f.add({(i < num0) ? -v[d][i] : v[d][i]});
+  }
+  if (max_comps >= 0) {
+    // units: each distinct g variable once per comparator it represents (2 for a mirrored pair)
+    std::vector<int> units;
+    for (int k = 0; k < d; k++)
+      for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++) {
+          if (sym && n - 1 - j < i) continue;  // alias of an earlier variable
+          units.push_back(g[k][i][j]);
+          if (sym && i + j != n - 1) units.push_back(g[k][i][j]);
+        }
+    int N = units.size(), K = max_comps;
+    CHECK(K >= 1);
+    // Sinz (2005) sequential counter: s[i][j] = "at least j of the first i units are true"
+    std::vector<std::vector<int>> sv(N, std::vector<int>(K + 1, 0));
+    for (int i = 0; i < N; i++)
+      for (int j = 1; j <= K; j++) sv[i][j] = f.newvar();
+    f.add({-units[0], sv[0][1]});
+    for (int j = 2; j <= K; j++) f.add({-sv[0][j]});
+    for (int i = 1; i < N; i++) {
+      f.add({-units[i], sv[i][1]});
+      f.add({-sv[i - 1][1], sv[i][1]});
+      for (int j = 2; j <= K; j++) {
+        f.add({-units[i], -sv[i - 1][j - 1], sv[i][j]});
+        f.add({-sv[i - 1][j], sv[i][j]});
+      }
+      f.add({-units[i], -sv[i - 1][K]});
+    }
   }
   for (auto &c : f.clauses)
     for (int l : c) CHECK(l != 0);

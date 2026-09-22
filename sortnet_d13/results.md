@@ -35,7 +35,11 @@ same SAT chain (`tests/test_pipeline.py`).
 | E | as D but layer 7 open for SAT on the 24 free channels | 6 (+ open layer) | 1800 s | 8/8 UNSAT in 15–24 s | NEGATIVE |
 | A | S, 6 layers (1699, 1735, 1915, 1915) | 7 | 1800 s | 4/4 TIMEOUT (instances 5–8 not run) | INCONCLUSIVE |
 | F | N4, 6 layers (1853, 1853, 1857, 1857) | 7 | 7200 s | 4/4 UNSAT in 501–520 s | NEGATIVE |
-| G | N4, 5 layers (5478, 5478; the two VV variants × the |out14|=66 prefix), no greedy layer | 8 | 14400 s | running (602k vars, 21.8M clauses) | – |
+| G | N4, 5 layers (5478, 5478; the two VV variants × the |out14|=66 prefix), no greedy layer | 8 | 14400 s | killed by a container restart after ~3 h, no verdict (602k vars, 21.8M clauses) | INCONCLUSIVE |
+| F-control | N4 prefix #1 (1853), normal-form constraints psi1/psi3 removed | 7 | 14400 s | UNSAT in 654 s | NEGATIVE (independent of normal forms) |
+| H | N4 prefix #1 (1853), suffix NOT required to be symmetric | 7 | 14400 s | running | – |
+| K30 | first 7 layers of Dobbelaere's 30/172/14 network (1033) | 6 | 3600 s | UNSAT in 3.2 s | NEGATIVE |
+Structured (rank-aligned, Ehlers-style) sixth layers on the 16+14 stack give 3001–3689 outputs, i.e. larger instances than the greedy 1853; not run.
 Reproduce: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> 4 [--open_last]`; prefix libraries are in `runs/`.
 Calibration of this negative pattern: Wang's own eight 28-channel 6-layer prefixes (all SAT with 7 layers) become 8/8 UNSAT in
 4–5 s after a greedy 7th layer (|out| 928 → 530). Hence runs B/D/E only show that greedy layer-7 choices are incompatible with
@@ -46,7 +50,11 @@ and it reproduces SAT on Wang's prefixes; see §1).
 
 ## 3. n = 32 (Phase 3)
 Seed VV16+VV16 nested (|out| 6889; the 5-cube has 7581, the first 5 layers of the 185/14 network 6887): greedy 6th layer 1787
-(64 prefixes), 7th layer 992 (83 prefixes). SAT runs: not yet started (waiting for the n=30 outcome).
+(64 prefixes), 7th layer 992 (83 prefixes).
+| run | prefixes | SAT layers | budget | result | label |
+|---|---|---|---|---|---|
+| K32 | first 7 layers of Dobbelaere's 32/185/14 network (1231) | 6 | 3600 s | UNSAT in 4.2 s | NEGATIVE |
+| F32 | VV16+VV16 nested, 6 layers (1787, 1787) | 7 | 7200 s | running | – |
 
 ## 4. Negative / inconclusive results
 (to be filled)

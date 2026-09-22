@@ -1,0 +1,7 @@
+=== run n28_S_wang_p0_max75_minisat started 2026-09-22T23:14:22Z on vm
+args: lib=runs/calib_wang_L7/wang_p0.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=7200 limit=1 jobs=1 extra='--max_comps 75'
+output-set sizes of the prefixes to be solved:
+0 928;
+cnf 0000: |out|=928 window_sum=8608 max=25 vars=271628 clauses=2654064 (0.3 s)
+cnf generation took 2 s
+solving 1 instances with minisat, timeout 7200s, 1 jobs

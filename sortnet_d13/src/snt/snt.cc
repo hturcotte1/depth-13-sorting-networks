@@ -162,9 +162,9 @@ int cmd_cnf() {
       for (int c = 0; c < n; c++)
         if (net.layers.back()[c] != -1) forbid0.push_back(perm[c]);
     int d_sat = depth - net.depth() + (open_last ? 1 : 0);
-    Cnf f = build_cnf(n, d_sat, outs, sym, argi("subnet", -1), forbid0, flag("no_nf"));
+    Cnf f = build_cnf(n, d_sat, outs, sym, argi("subnet", -1), forbid0, flag("no_nf"), argi("max_comps", -1));
     std::vector<std::string> header = {"n " + std::to_string(n), "sym " + std::to_string(sym), "depth " + std::to_string(depth),
-                                       "prefix_depth " + std::to_string(net.depth()), "open_last " + std::to_string(open_last), "no_nf " + std::to_string(flag("no_nf") ? 1 : 0),
+                                       "prefix_depth " + std::to_string(net.depth()), "open_last " + std::to_string(open_last), "no_nf " + std::to_string(flag("no_nf") ? 1 : 0), "max_comps " + std::to_string(argi("max_comps", -1)),
                                        "prefix " + net.to_string()};
     std::string ps = "perm";
     for (int p : perm) ps += " " + std::to_string(p);

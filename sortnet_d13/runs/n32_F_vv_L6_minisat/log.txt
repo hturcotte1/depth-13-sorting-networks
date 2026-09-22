@@ -1,0 +1,8 @@
+=== run n32_F_vv_L6_minisat started 2026-09-22T23:10:50Z on vm
+args: lib=runs/n32_seed/vv_nested_L6_top4.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=7200 limit=2 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 1787;1 1787;
+cnf 0000: |out|=1787 window_sum=19284 max=30 vars=159874 clauses=5583368 (0.7 s)
+cnf 0001: |out|=1787 window_sum=19312 max=29 vars=160098 clauses=5604228 (0.8 s)
+cnf generation took 21 s
+solving 2 instances with minisat, timeout 7200s, 2 jobs

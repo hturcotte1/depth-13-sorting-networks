@@ -210,3 +210,21 @@ sorter of the block alone (16 channels: depth 9; 14: depth 9; 12: depth 8), all 
 5. Sound cheap pre-screen (Bundala-Zavodny subnetwork relaxation): SAT with only the prefix outputs of window <= w; UNSAT there implies UNSAT
    overall. `snt cnf --subnet w` implements it; timing test launched on run F prefix 0 (w = 8, 12, 16, 20).
 6. Completability is not monotone under adding comparators (Knuth ex. 5.3.4-21) -> explains why greedy layer 7 kills completable prefixes.
+
+## Runs K30/K32 — NEGATIVE (23:02 UTC)
+First 7 layers of Dobbelaere's 30/172/14 network (|out| 1033) + 6 SAT layers: UNSAT in 3.2 s. First 7 layers of 32/185/14 (|out| 1231) + 6 SAT
+layers: UNSAT in 4.2 s. (Those networks need their remaining 7 layers.)
+Structured rank-aligned 6th layers (Ehlers-style cross-block matchings) on the 5-layer stacks: 30-ch 16+14 -> 3001..3689 outputs (greedy: 1853);
+32-ch VV+VV translate/coordinate pairing -> 2540 (greedy: 1787); reflection-pair layers are much worse (4699..6561). Files: runs/structured6/.
+15-channel generators stopped (mirrored 15+15 deprioritised: a 15-ch prefix needs |out| <= ~60 to beat the 16+14 stacks and the exhaustive
+generation is too slow here).
+Run F32 (23:10): the 2 best VV16+VV16 nested 6-layer prefixes (|out| 1787), 7 SAT layers, minisat 7200 s, 2 jobs — Wang's recipe for n=32.
+
+## Control run — the run F negative does not depend on the normal-form constraints (23:11 UTC)
+runs/n30_F0_control_no_nf_minisat: run F prefix 0 (|out| 1853), 7 SAT layers, symmetric, with psi1/psi3 removed (`--no_nf`; only the
+necessary constraints of CCEMS Lemma 4/6 kept): UNSAT in 654 s (vs 520 s with them). Redundancy removal preserves reflection symmetry
+(a comparator and its mirror are redundant together), so Lemma 4/6 apply to symmetric completions; hence: NO reflection-symmetric 13-layer
+completion of that 6-layer prefix exists. Run H (non-symmetric suffix, same prefix) still running.
+Subnet pre-screen on the same prefix: w=8 SAT 2 s, w=12 SAT 29 s, w=16 > 10 min -> not a useful quick filter here; stopped.
+`snt cnf --max_comps K` implemented (Sinz sequential counter over suffix comparators; mirrored pairs count 2). n=10 check: from the
+best 2-layer prefix (9 comparators), suffix <= 22 -> SAT (size 31 = best known (31,7)), suffix <= 20 -> UNSAT.

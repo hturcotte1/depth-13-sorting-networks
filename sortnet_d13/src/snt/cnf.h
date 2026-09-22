@@ -34,12 +34,14 @@ struct CnfMeta {
 
 // forbid0: channels (in the permuted numbering) that may not be used in suffix layer 0
 // (used when the prefix's last layer is only partially filled and SAT may complete it).
+// max_comps >= 0: at most that many comparators in the suffix (mirror pairs count 2), via a
+// Sinz sequential counter.
 // If no_normal_forms is set, only the NECESSARY restrictions are kept (last layer adjacent-only,
 // second-to-last span<=3 with its implications: CCEMS Lemma 4/6 for non-redundant networks) and the
 // normal-form constraints psi1 (no two adjacent idle channels in the last layer) and psi3 (Lemma 9)
 // are dropped. Used as a control for UNSAT verdicts under the reflection-symmetry restriction.
 Cnf build_cnf(int n, int d, const std::vector<Out> &outs, bool sym, int subnet_channels,
-              const std::vector<int> &forbid0 = {}, bool no_normal_forms = false);
+              const std::vector<int> &forbid0 = {}, bool no_normal_forms = false, int max_comps = -1);
 void write_cnf(const Cnf &f, const std::string &path, const std::vector<std::string> &header);
 CnfMeta read_cnf_meta(const std::string &path);
 std::vector<int> read_solution(const std::string &path, bool *sat);
