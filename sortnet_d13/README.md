@@ -1,13 +1,15 @@
 # Depth-13 sorting networks for 29–32 channels: research session record
 
-**Outcome (2026-09-23): no 13-layer sorting network on 29, 30, 31 or 32 channels was found, and no entry of Dobbelaere's list was
-improved; the best known depth for these sizes remains 14.** What was found instead is a set of exact negative results about the most
-natural constructions. First, Wang's 2025 recipe for 28 channels (stack a Van Voorhis 16-channel prefix with a small optimal prefix, add a
+**Outcome (2026-09-23): no 13-layer sorting network on 29, 30, 31 or 32 channels was found; the best known depth for these sizes remains
+14. One entry of Dobbelaere's list was improved: 27 inputs at depth 13, from 153 to 152 comparators (VERIFIED by both verifiers on all
+2^27 inputs; `networks/n27d13_size152.txt`). It is the published 27-input network with one comparator deleted; an exhaustive single-deletion
+sweep over all 54 networks of the list finds no other removable comparator.** Beyond that, the session produced a set of exact negative
+results about the most natural constructions for 30 and 32 channels. First, Wang's 2025 recipe for 28 channels (stack a Van Voorhis 16-channel prefix with a small optimal prefix, add a
 sixth layer greedily by minimal output set, solve layers 7–13 by SAT) was reproduced end to end (8/8 SAT, 8 verified networks) and then
 transferred faithfully to 30 channels (16+14) and 32 channels (16+16): the twelve best 30-channel prefixes and the four best 32-channel
 prefixes it produces have **no** reflection-symmetric 13-layer completion (MiniSat UNSAT in 500–1800 s each, confirmed without the
 normal-form constraints). Second, the size of Wang's 28-channel depth-13 network (159) is optimal for its prefix among symmetric completions
-(UNSAT with a cardinality bound), and no single comparator of the published 28/159/13 network is removable. Third, a calibration nobody had
+(UNSAT with a cardinality bound). Third, a calibration nobody had
 reported: adding a greedy seventh layer even to Wang's own completable prefixes makes them UNSAT in seconds, so greedy min-output extension
 beyond layer 6 is the wrong tool, and the fast negatives of that kind carry no information.
 

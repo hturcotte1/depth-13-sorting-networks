@@ -307,6 +307,59 @@ int cmd_prune() {
     chk.outputs = outs;
     return chk.is_sorting();
   };
+  if (flag("pairs")) {
+    // exhaustive test of all pairs of comparators: delete both, check sorting (uses the cache up to the earlier layer)
+    std::vector<std::vector<Out>> after;
+    {
+      Net t(n, 0);
+      for (int l = 0; l < net.depth(); l++) {
+        t.layers.push_back(net.layers[l]);
+        t.outputs = compute_outputs(t);
+        after.push_back(t.outputs);
+      }
+      CHECK(t.is_sorting());
+    }
+    std::vector<std::array<int, 3>> comps;
+    for (int l = 0; l < net.depth(); l++)
+      for (int i = 0; i < n; i++)
+        if (net.layers[l][i] > i) comps.push_back({l, i, net.layers[l][i]});
+    long long tested = 0, found = 0;
+    for (size_t x = 0; x < comps.size(); x++)
+      for (size_t y = x + 1; y < comps.size(); y++) {
+        auto [l1, a1, b1] = comps[x];
+        auto [l2, a2, b2] = comps[y];
+        std::vector<Out> outs;
+        int start;
+        if (l1 == 0) {
+          Net t(n, 1);
+          for (int i = 0; i < n; i++) {
+            int j = net.layers[0][i];
+            if (j > i && !(i == a1 && j == b1) && !(l2 == 0 && i == a2 && j == b2)) t.layers[0][i] = j, t.layers[0][j] = i;
+          }
+          outs = compute_outputs(t);
+          start = 1;
+        } else {
+          outs = after[l1 - 1];
+          start = l1;
+        }
+        for (int l = start; l < net.depth(); l++)
+          for (int i = 0; i < n; i++) {
+            int j = net.layers[l][i];
+            if (j > i && !(l == l1 && i == a1 && j == b1) && !(l == l2 && i == a2 && j == b2)) outs = add_comparator(outs, i, j);
+          }
+        Net chk(n, 0);
+        chk.outputs = outs;
+        tested++;
+        if (chk.is_sorting()) {
+          found++;
+          printf("removable pair: layer %d (%d,%d) + layer %d (%d,%d)\n", l1 + 1, a1, b1, l2 + 1, a2, b2);
+          fflush(stdout);
+        }
+        if (tested % 2000 == 0) fprintf(stderr, "pairs tested %lld / %zu\n", tested, comps.size() * (comps.size() - 1) / 2);
+      }
+    printf("pairs: n=%d size=%d tested=%lld removable_pairs=%lld\n", n, net.size(), tested, found);
+    return 0;
+  }
   int removed = 0;
   while (true) {
     // cache outputs after each layer
