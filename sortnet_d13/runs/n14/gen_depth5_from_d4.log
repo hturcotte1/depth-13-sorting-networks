@@ -55,3 +55,45 @@ extend: 2500/4389 prefixes expanded, 3310745 candidates so far
 extend: 3000/4389 prefixes expanded, 3984233 candidates so far
   prune pass 1/2: 47011 remain
   prune pass 2/2: 42084 remain
+  prune pass 1/2: 47374 remain
+  prune pass 2/2: 42562 remain
+  prune pass 1/2: 48488 remain
+  prune pass 2/2: 43362 remain
+  prune pass 1/2: 48242 remain
+  prune pass 2/2: 43508 remain
+extend: 3500/4389 prefixes expanded, 4688237 candidates so far
+  prune pass 1/2: 47191 remain
+  prune pass 2/2: 42282 remain
+  prune pass 1/2: 44562 remain
+  prune pass 2/2: 39966 remain
+  prune pass 1/2: 46017 remain
+  prune pass 2/2: 41247 remain
+  prune pass 1/2: 47380 remain
+  prune pass 2/2: 42392 remain
+  prune pass 1/2: 46156 remain
+  prune pass 2/2: 41175 remain
+extend: 4000/4389 prefixes expanded, 5359047 candidates so far
+  prune pass 1/2: 47731 remain
+  prune pass 2/2: 42949 remain
+  prune pass 1/2: 46019 remain
+  prune pass 2/2: 41062 remain
+  prune pass 1/2: 46947 remain
+  prune pass 2/2: 42216 remain
+  prune pass 1/2: 49970 remain
+  prune pass 2/2: 45024 remain
+  prune pass 1/2: 45266 remain
+  prune pass 2/2: 40718 remain
+extend: total generated 5908328, 5732 after local pruning; final clean_up (keep=24)
+  prune pass 1/2: 1882 remain
+  prune pass 2/2: 1713 remain
+  prune pass 1/6: 48 remain
+  prune pass 2/6: 48 remain
+  prune pass 3/6: 48 remain
+  prune pass 4/6: 48 remain
+  prune pass 5/6: 48 remain
+  prune pass 6/6: 47 remain
+gen: depth 5 -> 32 non-redundant prefixes (6450.5 s); best |out| = 66
+
+real	107m32.396s
+user	119m40.834s
+sys	0m7.638s

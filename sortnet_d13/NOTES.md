@@ -246,3 +246,9 @@ Single-comparator deletion test (src/prune_single.py) running on the published d
 VV16+VV16 nested 6-layer prefixes #3 and #4 (|out| 1787): UNSAT in 1790 s and 1793 s. Together with F32: the 4 best greedy 6-layer
 prefixes of the 16+16 Van Voorhis family have no reflection-symmetric 13-layer completion.
 Run F5 (23:58): 30-channel 16+14 pool prefixes #5-#12 (|out| 1857..~1900), 7 SAT layers, minisat 1200 s each, 2 jobs (variance test).
+
+## 14-channel keep-limited library finished (00:35 UTC, 23 Sep)
+`snt gen --n 14 --sym --depth 5 --keep ,2000,4000,24`: depth 2: 69 (all), depth 3: 2007 (kept 2000 of 16119 locally-pruned candidates),
+depth 4: 4389 (kept ~4000 of 49487; 5.76M candidates generated), depth 5: 32 prefixes, best |out| = 66 (6450 s for the last step).
+The best value equals the keep-4 greedy result (66), so the exhaustive-ish library does not improve the 16+14 stacks' 5478 outputs.
+Run F' (00:40): stack all 32 with both VV16 variants in both nestings, greedy 6th layer (keep 64), then the 8 best with 1200 s each.

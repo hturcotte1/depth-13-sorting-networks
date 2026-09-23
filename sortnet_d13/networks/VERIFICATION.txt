@@ -1,0 +1,44 @@
+# Verification log for networks/ (generated 2026-09-23T00:38:40Z)
+# Commands: src/verify_c <file> ; python3 src/verify_py.py --mode outputset <file>  (exhaustive mode also for n<=26)
+## networks/VERIFICATION.txt
+no comparators
+PARSE ERROR: unexpected character 'n' at offset 3
+## networks/n27d13_by_channel_deletion.txt
+RESULT: SORTS all 2^27 binary inputs (n=27, size=154, depth=13)
+RESULT: SORTS all 2^27 binary inputs (n=27, size=154, depth=13)
+## networks/n28d13_own_encoder_on_wang_prefix_0000.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+## networks/n28d13_own_encoder_on_wang_prefix_0001.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=166, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=166, depth=13)
+## networks/n28d13_own_encoder_on_wang_prefix_0002.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+## networks/n28d13_own_encoder_on_wang_prefix_0003.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=163, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=163, depth=13)
+## networks/n28d13_wang_pipeline_repro_1.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+## networks/n28d13_wang_pipeline_repro_2.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=167, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=167, depth=13)
+## networks/n28d13_wang_pipeline_repro_3.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=167, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=167, depth=13)
+## networks/n28d13_wang_pipeline_repro_4.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=165, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=165, depth=13)
+## networks/n28d13_wang_pipeline_repro_5.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+## networks/n28d13_wang_pipeline_repro_6.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=173, depth=13)
+## networks/n28d13_wang_pipeline_repro_7.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=170, depth=13)
+## networks/n28d13_wang_pipeline_repro_8.txt
+RESULT: SORTS all 2^28 binary inputs (n=28, size=168, depth=13)
+RESULT: SORTS all 2^28 binary inputs (n=28, size=168, depth=13)

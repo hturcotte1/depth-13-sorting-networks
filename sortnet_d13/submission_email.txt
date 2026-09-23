@@ -1,0 +1,29 @@
+STATUS: NOT TO BE SENT. This session found NO sorting network that improves any entry of the list.
+The draft below is a template to be completed only if a follow-up run produces a verified improvement
+(a 13-layer network on 29–32 channels, or a smaller network at depth 13 for 25–28 channels). Nothing has been sent.
+
+-----------------------------------------------------------------------------------------------------
+To: bert.o.dobbelaere at telenet dot be
+Subject: [FILL IN: e.g. "30-input sorting network with 13 layers"]
+
+Dear Bert,
+
+Attached is a sorting network for [N] inputs with [SIZE] comparators and [DEPTH] layers, in the format of your list
+(one layer per line, channels numbered from 0, comparator (i,j) puts the minimum on i). It [improves the depth bound from 14 to 13 /
+improves the size at depth 13 from S to S'] for [N] inputs.
+
+Construction (two sentences): the first [k] layers are a reflection-symmetric prefix obtained by stacking [a Van Voorhis 16-channel 5-layer
+prefix with a 14-channel prefix from a generate-and-prune library / ...] and extending it greedily one comparator (plus its mirror) at a time
+as in Wang (arXiv:2511.04107); the remaining layers were found with MiniSat using the encoding of Codish, Cruz-Filipe, Ehlers, Müller and
+Schneider-Kamp (JCSS 2019), after which unused comparators were removed and the network re-layered.
+
+Verification: the network sorts all 2^[N] binary inputs; this was checked by two independent programs (a bit-sliced C program and a
+Python program computing the reachable output set layer by layer), both included with the network files.
+
+Credit line: [NAME], with an AI research session (Claude).
+
+Best regards,
+[NAME]
+
+Attachment: [network file in your format + JSON]
+-----------------------------------------------------------------------------------------------------

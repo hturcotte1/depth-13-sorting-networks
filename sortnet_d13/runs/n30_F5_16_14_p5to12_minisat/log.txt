@@ -1,2 +1,18 @@
 === run n30_F5_16_14_p5to12_minisat started 2026-09-22T23:57:35Z on vm
 args: lib=runs/n30_16_14/stack_g4_L6_p5to12.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1200 limit=8 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 1873;1 1873;2 1873;3 1873;4 1889;5 1889;6 1893;7 1893;
+cnf 0000: |out|=1873 window_sum=19480 max=26 vars=160777 clauses=5203072 (0.7 s)
+cnf 0001: |out|=1873 window_sum=19640 max=27 vars=162057 clauses=5371784 (0.9 s)
+cnf 0002: |out|=1873 window_sum=19586 max=26 vars=161625 clauses=5310356 (0.9 s)
+cnf 0003: |out|=1873 window_sum=19584 max=27 vars=161609 clauses=5327628 (0.9 s)
+cnf 0004: |out|=1889 window_sum=19556 max=27 vars=161385 clauses=5310968 (1.0 s)
+cnf 0005: |out|=1889 window_sum=19588 max=27 vars=161641 clauses=5332732 (1.0 s)
+cnf 0006: |out|=1893 window_sum=19660 max=28 vars=162217 clauses=5368156 (0.9 s)
+cnf 0007: |out|=1893 window_sum=19692 max=28 vars=162473 clauses=5390088 (1.0 s)
+cnf generation took 33 s
+solving 8 instances with minisat, timeout 1200s, 2 jobs
+00:12:34 0000.cnf UNSAT 840.6s 
+00:17:05 0001.cnf UNSAT 1111.7s 
+00:31:16 0002.cnf UNSAT 1122.3s 
+00:36:58 0003.cnf UNSAT 1192.5s 
