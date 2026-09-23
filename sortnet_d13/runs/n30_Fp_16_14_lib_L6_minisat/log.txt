@@ -18,3 +18,17 @@ solving 8 instances with minisat, timeout 1200s, 2 jobs
 01:39:35 0003.cnf UNSAT 822.8s 
 01:59:01 0004.cnf TIMEOUT 1200.1s 
 01:59:35 0005.cnf TIMEOUT 1200.1s 
+02:19:01 0006.cnf TIMEOUT 1200.2s 
+02:19:35 0007.cnf TIMEOUT 1200.1s 
+done: 0 SAT of 8 in 4038s wall
+solving took 4038 s
+=== run n30_Fp_16_14_lib_L6_minisat finished 2026-09-23T02:19:35Z
+summary: 8 instances: 0 SAT, 4 UNSAT, 4 TIMEOUT
+  0000.cnf minisat UNSAT 798s
+  0001.cnf minisat UNSAT 815s
+  0002.cnf minisat UNSAT 807s
+  0003.cnf minisat UNSAT 823s
+  0004.cnf minisat TIMEOUT 1200s
+  0005.cnf minisat TIMEOUT 1200s
+  0006.cnf minisat TIMEOUT 1200s
+  0007.cnf minisat TIMEOUT 1200s

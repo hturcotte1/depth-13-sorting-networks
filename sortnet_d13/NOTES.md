@@ -267,3 +267,13 @@ src/prune_single.py (exhaustive single-comparator deletion with the exact output
 (exhaustive numpy pass + output-set method, 2m39s). Improves Dobbelaere's (153,13) entry for 27 inputs. File: networks/n27d13_size152.txt/.json.
 Follow-ups launched: S27 (first 6 layers of the 152-network, 77 comparators, |out| 884, 7 SAT layers, non-symmetric, suffix <= 74 -> total <= 151),
 S28c (Wang prefix #0, non-symmetric suffix <= 75 -> total <= 158); both with necessary constraints only, 14400 s.
+
+## Run F' — 4 NEGATIVE + 4 INCONCLUSIVE (02:20 UTC)
+Library stacks (32 14-ch prefixes x 2 VV16 x 2 nestings = 128 stacks, |out| 5478..6059) -> greedy 6th layer (keep 64, 31 min): best 1693.
+Best 8 (|out| 1693,1693,1697,1697,1729,1729,1733,1733), 7 SAT layers, 1200 s: #0-#3 UNSAT in 798, 815, 807, 823 s; #4-#7 TIMEOUT at 1200 s.
+32-channel 5-cube family: greedy 6th layer 7581 -> 2416 (51 prefixes; 69 min under load); run C32 = best 2 (2416, 2516), 7 SAT layers, 3600 s.
+Queued: F'' = F' prefixes #4-#7 with 7200 s each.
+
+## Run C32 — NEGATIVE (02:32 UTC)
+5-cube prefix (7581) + greedy 6th layer (2416 and 2516), 7 SAT layers: UNSAT in 818 s and 779 s. Third 32-channel family with no
+reflection-symmetric 13-layer completion of its greedy 6-layer prefixes. F'' (30-ch, 1729/1733 prefixes, 7200 s) started.

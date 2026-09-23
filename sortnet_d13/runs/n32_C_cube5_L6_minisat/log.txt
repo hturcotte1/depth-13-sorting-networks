@@ -1,0 +1,16 @@
+=== run n32_C_cube5_L6_minisat started 2026-09-23T02:17:48Z on vm
+args: lib=runs/n32_seed/cube5_L6.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=3600 limit=2 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 2416;1 2516;
+cnf 0000: |out|=2416 window_sum=22214 max=24 vars=183314 clauses=4994662 (0.7 s)
+cnf 0001: |out|=2516 window_sum=22668 max=24 vars=186946 clauses=5033048 (0.8 s)
+cnf generation took 27 s
+solving 2 instances with minisat, timeout 3600s, 2 jobs
+02:31:41 0001.cnf UNSAT 778.6s 
+02:32:21 0000.cnf UNSAT 818.1s 
+done: 0 SAT of 2 in 818s wall
+solving took 818 s
+=== run n32_C_cube5_L6_minisat finished 2026-09-23T02:32:21Z
+summary: 2 instances: 0 SAT, 2 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 818s
+  0001.cnf minisat UNSAT 779s

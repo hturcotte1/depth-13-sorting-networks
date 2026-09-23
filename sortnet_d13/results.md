@@ -55,7 +55,8 @@ details in `NOTES.md`.)
 | G | N4, 5 layers (5478, 5478), no greedy layer | 8 | 14400 s | killed by container restart after ~3 h (602k vars, 21.8M clauses) | INCONCLUSIVE |
 | K30 | D30, 7 layers (1033) | 6 | 3600 s | UNSAT 3.2 s | NEGATIVE |
 | F5 | N4 #5–#12 (1857…1973) | 7 | 1200 s | 8/8 UNSAT, 841–1193 s | NEGATIVE |
-| F' | NL pool, greedy 6th layer, best 8 | 7 | 1200 s | RESULT_FP | LABEL_FP |
+| F' | NL pool (128 stacks), greedy 6th layer, best 8 (1693, 1693, 1697, 1697, 1729, 1729, 1733, 1733) | 7 | 1200 s | #1–#4 UNSAT 798–823 s; #5–#8 TIMEOUT | NEGATIVE (4) / INCONCLUSIVE (4) |
+| F'' | F' prefixes #5–#8 (1729, 1729, 1733, 1733) | 7 | 7200 s | RESULT_FPP | LABEL_FPP |
 Reproduce any row: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> <jobs> [--open_last] [--no_nf] [--max_comps K]`;
 the prefix libraries are under `runs/` (`n30_seed/vv_del_L6.txt`, `n30_16_14/stack_g4_L6.txt`, …), the CNF headers record the prefix and the
 channel permutation, and each run's `log.txt` records sizes and timings.
@@ -76,7 +77,8 @@ Green16 side by side (12100). VV16+VV16 greedy 6th layer → 1787 (64 prefixes),
 | K32 | first 7 layers of 32/185/14 (1231) | 6 | 3600 s | UNSAT 4.2 s | NEGATIVE |
 | F32 | VV16+VV16 nested, 6 layers, #1–#2 (1787) | 7 | 7200 s | 2/2 UNSAT, 798 s and 812 s | NEGATIVE |
 | F32b | same family, #3–#4 (1787) | 7 | 7200 s | 2/2 UNSAT, 1790 s and 1793 s | NEGATIVE |
-Not attempted (INCONCLUSIVE): 5-cube prefix + greedy/SAT 6th layer; 8 free layers on the 5-layer VV16+VV16 stack; cube-and-conquer.
+| C32 | 5-cube (7581) + greedy 6th layer, best 2 (2416, 2516) | 7 | 3600 s | 2/2 UNSAT, 818 s and 779 s | NEGATIVE |
+Not attempted (INCONCLUSIVE): 8 free layers on the 5-layer VV16+VV16 stack; cube-and-conquer.
 Consequences for 31/30/29 by channel deletion: none, since no 32-channel network was found.
 
 ## 4. Secondary targets (Phase 4)
