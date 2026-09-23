@@ -21,3 +21,5 @@ driver; `networks/` holds the 13 verified networks produced (all reproductions o
 network, with provenance and `VERIFICATION.txt`); `results.md` gives every run with parameters, timings and a VERIFIED / NEGATIVE /
 INCONCLUSIVE label, plus what a follow-up should try (longer budgets, SAT-scored beam search for layer 6, better block prefixes, unrestricted
 suffixes); `NOTES.md` is the chronological log including the literature review; `submission_email.txt` is a template marked not to be sent.
+
+**Paper manuscript:** `manuscript.md` is the full write-up (abstract, methods, the 27/152/13 network with its verification transcript, the size-optimality statement for Wang's prefix, the 30- and 32-channel negative results with instance sizes, discussion, limitations, reproducibility and confidence).

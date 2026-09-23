@@ -19,7 +19,7 @@ details in `NOTES.md`.)
 * **Wang's pipeline reproduced.** His repository was built from source with a plain Makefile against apt libraries (Bazel cannot fetch
   dependencies through the egress proxy) with one local patch (sparse output-set computation; his bitset needs ~15 GB at n=28).
   Steps and wall times (README commands): 12-channel prefixes 13m47s, 16-channel prefixes 1m25s, stacking <1 s, greedy 6th layer 11 s,
-  window permutation 2 s, CNF generation 11 s, MiniSat on 8 instances 20m47s (26.7 s … 906.9 s each, all SAT), decoding 53 s.
+  window permutation 2 s, CNF generation 11 s, MiniSat on 8 instances 20m47s wall (26.7 s … 1202.5 s each, all SAT), decoding 53 s.
   Result: 8 networks, 28 channels, 13 layers, sizes 165–173, every one accepted by `src/verify_c` (all 2^28 inputs) and `src/verify_py`.
   Files: `networks/n28d13_wang_pipeline_repro_*.txt|json`, log `runs/phase1_wang/log.txt`.
 * **Own reimplementation validated.** `src/snt` reproduces Wang's non-redundant symmetric 12-channel prefix counts (41 at depth 2,
@@ -55,7 +55,7 @@ details in `NOTES.md`.)
 | H | N4 #1 (1853), suffix not required to be symmetric (325k vars) | 7 | 14400 s | TIMEOUT at 14400 s | INCONCLUSIVE |
 | G | N4, 5 layers (5478, 5478), no greedy layer | 8 | 14400 s | killed by container restart after ~3 h (602k vars, 21.8M clauses) | INCONCLUSIVE |
 | K30 | D30, 7 layers (1033) | 6 | 3600 s | UNSAT 3.2 s | NEGATIVE |
-| F5 | N4 #5–#12 (1857…1973) | 7 | 1200 s | 8/8 UNSAT, 841–1193 s | NEGATIVE |
+| F5 | N4 #5–#12 (1873…1893) | 7 | 1200 s | 8/8 UNSAT, 841–1193 s | NEGATIVE |
 | F' | NL pool (128 stacks), greedy 6th layer, best 8 (1693, 1693, 1697, 1697, 1729, 1729, 1733, 1733) | 7 | 1200 s | #1–#4 UNSAT 798–823 s; #5–#8 TIMEOUT | NEGATIVE (4) / INCONCLUSIVE (4) |
 | F'' | F' prefixes #5–#8 (1729, 1729, 1733, 1733) | 7 | 7200 s | 4/4 UNSAT, 1057–1650 s | NEGATIVE |
 Reproduce any row: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> <jobs> [--open_last] [--no_nf] [--max_comps K]`;
