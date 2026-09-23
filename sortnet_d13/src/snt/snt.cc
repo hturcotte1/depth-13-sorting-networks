@@ -272,6 +272,80 @@ int cmd_info() {
   return 0;
 }
 
+// snt prune --net FILE --multiline [-n N]: for each comparator, test whether deleting it leaves a
+// sorting network (exact output-set check with per-layer caching); greedily delete while possible.
+int cmd_prune() {
+  int n = argi("n", 0);
+  Net net = flag("multiline") ? load_multiline(arg("net"), n) : load_nets(arg("net"), n, false)[0];
+  n = net.n;
+  auto sorts_without = [&](const Net &m, int layer, int a, int b, const std::vector<std::vector<Out>> &after) {
+    // outputs after layer-1 are cached in after[layer-1]; layer 0 is recomputed by the product construction
+    std::vector<Out> outs;
+    int start;
+    if (layer == 0) {
+      Net t(n, 1);
+      for (int i = 0; i < n; i++) {
+        int j = m.layers[0][i];
+        if (j > i && !(i == a && j == b)) t.layers[0][i] = j, t.layers[0][j] = i;
+      }
+      outs = compute_outputs(t);
+      start = 1;
+    } else {
+      outs = after[layer - 1];
+      for (int i = 0; i < n; i++) {
+        int j = m.layers[layer][i];
+        if (j > i && !(i == a && j == b)) outs = add_comparator(outs, i, j);
+      }
+      start = layer + 1;
+    }
+    for (int l = start; l < m.depth(); l++)
+      for (int i = 0; i < n; i++) {
+        int j = m.layers[l][i];
+        if (j > i) outs = add_comparator(outs, i, j);
+      }
+    Net chk(n, 0);
+    chk.outputs = outs;
+    return chk.is_sorting();
+  };
+  int removed = 0;
+  while (true) {
+    // cache outputs after each layer
+    std::vector<std::vector<Out>> after;
+    {
+      Net t(n, 0);
+      for (int l = 0; l < net.depth(); l++) {
+        t.layers.push_back(net.layers[l]);
+        t.outputs = compute_outputs(t);
+        after.push_back(t.outputs);
+      }
+      CHECK(t.is_sorting());
+    }
+    bool found = false;
+    for (int l = 0; l < net.depth() && !found; l++)
+      for (int i = 0; i < n && !found; i++) {
+        int j = net.layers[l][i];
+        if (j <= i) continue;
+        if (sorts_without(net, l, i, j, after)) {
+          printf("removable: layer %d comparator (%d,%d)\n", l + 1, i, j);
+          net.layers[l][i] = -1;
+          net.layers[l][j] = -1;
+          removed++;
+          found = true;
+        }
+      }
+    if (!found) break;
+  }
+  // drop empty layers
+  std::vector<std::vector<int>> L;
+  for (auto &l : net.layers)
+    if (std::any_of(l.begin(), l.end(), [](int v) { return v != -1; })) L.push_back(l);
+  net.layers = L;
+  net.outputs = compute_outputs(net);
+  printf("result: n=%d size=%d depth=%d sorting=%d removed=%d\n", n, net.size(), net.depth(), net.is_sorting(), removed);
+  if (removed > 0) printf("%s", net.to_multiline().c_str());
+  return 0;
+}
+
 int cmd_sizes() {
   std::vector<Net> nets = load_nets(arg("in"), argi("n", 0), false);
   if (flag("limit") && (int)nets.size() > argi("limit", 0)) nets.resize(argi("limit", 0));
@@ -303,6 +377,7 @@ int main(int argc, char **argv) {
   if (cmd == "decode") return cmd_decode();
   if (cmd == "info") return cmd_info();
   if (cmd == "sizes") return cmd_sizes();
+  if (cmd == "prune") return cmd_prune();
   fprintf(stderr, "unknown command %s\n", cmd.c_str());
   return 2;
 }
