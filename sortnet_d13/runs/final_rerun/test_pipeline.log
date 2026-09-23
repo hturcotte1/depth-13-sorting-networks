@@ -1,0 +1,10 @@
+# 2026-09-23T14:42:14Z
+$ time python3 tests/test_pipeline.py
+PASS test_gen_counts_n12
+PASS test_sat_chain_n10
+2/2 passed
+
+real	4m2.555s
+user	7m56.493s
+sys	0m2.003s
+exit=0

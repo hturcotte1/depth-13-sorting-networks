@@ -1,0 +1,12 @@
+# 2026-09-23T14:41:34Z
+$ time python3 tests/test_verifiers.py
+PASS test_dobbelaere_accept_and_broken_reject
+PASS test_parse_errors
+PASS test_trivial_networks
+PASS test_wang28
+4/4 passed
+
+real	0m37.817s
+user	0m48.762s
+sys	0m7.453s
+exit=0

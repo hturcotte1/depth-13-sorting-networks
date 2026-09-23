@@ -1,0 +1,16 @@
+# 2026-09-23T14:34:45Z clean rebuild of verify_c and exhaustive check of networks/n27d13_size152.txt
+$ gcc -O3 -march=native -fopenmp -o src/verify_c src/verify_c.c
+(build ok)
+$ time src/verify_c networks/n27d13_size152.txt
+file=networks/n27d13_size152.txt n=27 size=152 depth=13 inputs=134217728
+RESULT: SORTS all 2^27 binary inputs (n=27, size=152, depth=13)
+
+real	0m0.097s
+user	0m0.350s
+sys	0m0.004s
+exit=0
+$ sha256sum networks/n27d13_size152.txt networks/n27d13_size152.json
+6344af2c06599c6215326b8cb1fd2dc67190a78fc05e00930404a39728a3963c  networks/n27d13_size152.txt
+39bb3b5ba3bb5ae46faa6d22bb500410667bd7db3b6ff2fdd87b00ed65505807  networks/n27d13_size152.json
+$ python3: JSON layers == text layers?
+match: True | json size/depth: 152 13 | text size/depth: 152 13

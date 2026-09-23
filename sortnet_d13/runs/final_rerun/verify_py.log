@@ -1,0 +1,11 @@
+# 2026-09-23T14:34:48Z independent Python verifier, both methods, networks/n27d13_size152.txt
+$ time python3 src/verify_py.py --mode all networks/n27d13_size152.txt
+file=networks/n27d13_size152.txt n=27 size=152 depth=13 modes=exhaustive,outputset
+  exhaustive: SORTS
+  outputset:  SORTS (|output| per layer: [3188646, 272160, 49200, 11424, 2822, 884, 659, 472, 236, 118, 62, 39, 28])
+RESULT: SORTS all 2^27 binary inputs (n=27, size=152, depth=13)
+
+real	6m44.338s
+user	3m7.000s
+sys	3m32.963s
+exit=0
