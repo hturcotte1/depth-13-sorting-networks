@@ -8,3 +8,8 @@ sortnet_d13/runs/**/cnf/
 sortnet_d13/runs/**/*.cnf
 sortnet_d13/runs/**/*.sol
 sortnet_d13/runs/**/*.d[0-9]
+# LaTeX build files of the paper (main.pdf is kept)
+sortnet_d13/paper/*.aux
+sortnet_d13/paper/*.log
+sortnet_d13/paper/*.out
+sortnet_d13/paper/*.toc
