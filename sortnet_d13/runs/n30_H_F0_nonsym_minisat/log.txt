@@ -1,1 +1,4 @@
 solving 1 instances with minisat, timeout 14400s, 1 jobs
+02:59:56 0000.cnf TIMEOUT 14400.2s 
+done: 0 SAT of 1 in 14400s wall
+=== run H finished 2026-09-23T02:59:56Z

@@ -277,3 +277,7 @@ Queued: F'' = F' prefixes #4-#7 with 7200 s each.
 ## Run C32 — NEGATIVE (02:32 UTC)
 5-cube prefix (7581) + greedy 6th layer (2416 and 2516), 7 SAT layers: UNSAT in 818 s and 779 s. Third 32-channel family with no
 reflection-symmetric 13-layer completion of its greedy 6-layer prefixes. F'' (30-ch, 1729/1733 prefixes, 7200 s) started.
+
+## Run H — INCONCLUSIVE; run F'' partial (03:01 UTC)
+H: run F prefix 0 (1853) with a NON-symmetric suffix (CNF 2x the symmetric one): minisat TIMEOUT at 14400 s (4 h, shared cores).
+F'': library-stack prefixes #5,#6 (|out| 1729): UNSAT in 1634 s and 1650 s; #7,#8 (1733) running with 7200 s.
