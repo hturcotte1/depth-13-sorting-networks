@@ -103,3 +103,21 @@ result: n=2 size=1 depth=1 sorting=1 removed=0
 == N30L172D14 03:51:48
 result: n=30 size=172 depth=14 sorting=1 removed=0
 == N31L180D14 03:54:18
+result: n=31 size=180 depth=14 sorting=1 removed=0
+== N32L185D14 03:59:34
+result: n=32 size=185 depth=14 sorting=1 removed=0
+== N3L3D3 04:08:10
+result: n=3 size=3 depth=3 sorting=1 removed=0
+== N4L5D3 04:08:10
+result: n=4 size=5 depth=3 sorting=1 removed=0
+== N5L9D5 04:08:10
+result: n=5 size=9 depth=5 sorting=1 removed=0
+== N6L12D5 04:08:10
+result: n=6 size=12 depth=5 sorting=1 removed=0
+== N7L16D6 04:08:10
+result: n=7 size=16 depth=6 sorting=1 removed=0
+== N8L19D6 04:08:10
+result: n=8 size=19 depth=6 sorting=1 removed=0
+== N9L25D7 04:08:10
+result: n=9 size=25 depth=7 sorting=1 removed=0
+PRUNE_ALL_DONE

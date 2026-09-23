@@ -88,14 +88,15 @@ Consequences for 31/30/29 by channel deletion: none, since no 32-channel network
 | test | result | label |
 |---|---|---|
 | single-comparator deletion from 28/159/13 (exact output-set check for each of the 159 comparators) | none removable | NEGATIVE |
+| single-comparator deletion over all 54 published networks (`snt prune`) | only 27/153/13 has a removable comparator | see below |
 | S28: Wang prefix #0 (83 comparators) + 7 layers with ≤ 75 suffix comparators (total ≤ 158), symmetric, with normal forms | UNSAT 989 s | NEGATIVE (under normal forms) |
 | S28b: same, necessary constraints only (`--no_nf --max_comps 75`) | UNSAT 1207 s | NEGATIVE: from this prefix 159 is optimal among symmetric completions |
 | 27 channels by deleting channel 0 or 27 from the 13 verified 28-channel networks | best 154 (> 153) | no improvement |
 Not attempted: non-symmetric suffix with a size bound; other prefixes of Wang's family; SorterHunter-style local search (INCONCLUSIVE).
 **Single-comparator deletion on the published 27/153/13 network: comparator (23,26) of layer 7 is removable, giving a 27-channel network
 with 152 comparators and 13 layers — VERIFIED by `src/verify_c` (all 2^27 inputs) and `src/verify_py --mode all` (exhaustive and output-set);
-`networks/n27d13_size152.txt|json`. This improves the (153, 13) entry for 27 inputs.** The same test finds nothing removable in the
-26/141, 25/131, 24/120, 23/115 and 22/106 depth-13 networks. Follow-ups S27 (total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix)
+`networks/n27d13_size152.txt|json`. This improves the (153, 13) entry for 27 inputs.** The same test, run with the fast C++ implementation (`snt prune`) over **all 54 networks of the list**, finds no other removable
+comparator anywhere (`runs/prune_all.log`). Follow-ups S27 (total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix)
 and S28c (28 channels, total ≤ 158, non-symmetric suffix): RESULT_S27S28C.
 ### 4.2 Direct n = 29
 Not attempted (INCONCLUSIVE). Note that an odd-n network cannot be reflection-symmetric layer by layer (comparators on the middle channel
