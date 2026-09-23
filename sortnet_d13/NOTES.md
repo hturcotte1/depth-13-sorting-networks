@@ -294,3 +294,4 @@ n=32: 6 prefixes (VV16+VV16: 4, 5-cube: 2), 6 UNSAT. Inconclusive: run G (8 free
 comparator, exactly one does: 27/153/13 -> 152 (layer 7, (23,26)); after that deletion nothing further is removable. Log: runs/prune_all.log.
 Still running: S27 (27 channels, total <= 151 via SAT+cardinality, non-symmetric suffix) and S28c (28 channels, total <= 158, non-symmetric),
 14400 s each, started 02:11.
+Pair-deletion test (`snt prune --pairs`) on 27/152/13: all 11476 pairs tested, none removable (04:48 UTC). 28/159/13 pair test running.

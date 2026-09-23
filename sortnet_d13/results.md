@@ -96,8 +96,8 @@ Not attempted: non-symmetric suffix with a size bound; other prefixes of Wang's 
 **Single-comparator deletion on the published 27/153/13 network: comparator (23,26) of layer 7 is removable, giving a 27-channel network
 with 152 comparators and 13 layers — VERIFIED by `src/verify_c` (all 2^27 inputs) and `src/verify_py --mode all` (exhaustive and output-set);
 `networks/n27d13_size152.txt|json`. This improves the (153, 13) entry for 27 inputs.** The same test, run with the fast C++ implementation (`snt prune`) over **all 54 networks of the list**, finds no other removable
-comparator anywhere (`runs/prune_all.log`). Follow-ups S27 (total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix)
-and S28c (28 channels, total ≤ 158, non-symmetric suffix): RESULT_S27S28C.
+comparator anywhere (`runs/prune_all.log`). Deleting any two comparators of the 152-network never leaves a sorting network (`snt prune --pairs`, 11476 pairs). Follow-ups S27
+(total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix) and S28c (28 channels, total ≤ 158, non-symmetric suffix): RESULT_S27S28C.
 ### 4.2 Direct n = 29
 Not attempted (INCONCLUSIVE). Note that an odd-n network cannot be reflection-symmetric layer by layer (comparators on the middle channel
 have no disjoint mirror), so the encoding would need a relaxed symmetry (middle-channel comparators unconstrained); see `NOTES.md`.
