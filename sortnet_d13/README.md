@@ -1,20 +1,21 @@
 # Depth-13 sorting networks for 29–32 channels: research session record
 
-**Status (2026-09-22): no 13-layer sorting network on 29, 30, 31 or 32 channels was found; the best known depth for these sizes remains 14.**
-This directory contains a verified reproduction of Wang's 28-channel depth-13 result, an independent dependency-free reimplementation of
-his pipeline (prefix generation with symmetric subsumption pruning, prefix stacking in nested and mirrored layouts, greedy layer extension,
-the CCEMS SAT encoding, decoding with untangling, comparator stripping and re-layering), two independent exhaustive verifiers with tests,
-and a documented set of negative and inconclusive results for 30 and 32 channels. Every network that is called verified passed both verifiers
-on all 2^n binary inputs. Details, exact parameters and labels (VERIFIED / NEGATIVE / INCONCLUSIVE) are in `results.md`; the running log is
-`NOTES.md`.
+**Outcome (2026-09-23): no 13-layer sorting network on 29, 30, 31 or 32 channels was found, and no entry of Dobbelaere's list was
+improved; the best known depth for these sizes remains 14.** What was found instead is a set of exact negative results about the most
+natural constructions. First, Wang's 2025 recipe for 28 channels (stack a Van Voorhis 16-channel prefix with a small optimal prefix, add a
+sixth layer greedily by minimal output set, solve layers 7–13 by SAT) was reproduced end to end (8/8 SAT, 8 verified networks) and then
+transferred faithfully to 30 channels (16+14) and 32 channels (16+16): the twelve best 30-channel prefixes and the four best 32-channel
+prefixes it produces have **no** reflection-symmetric 13-layer completion (MiniSat UNSAT in 500–1800 s each, confirmed without the
+normal-form constraints). Second, the size of Wang's 28-channel depth-13 network (159) is optimal for its prefix among symmetric completions
+(UNSAT with a cardinality bound), and no single comparator of the published 28/159/13 network is removable. Third, a calibration nobody had
+reported: adding a greedy seventh layer even to Wang's own completable prefixes makes them UNSAT in seconds, so greedy min-output extension
+beyond layer 6 is the wrong tool, and the fast negatives of that kind carry no information.
 
-What was established: (i) depth 13 for n = 29..32 was still open on 2026-09-20 (Dobbelaere's list, arXiv, Scholar, GitHub checked);
-(ii) Wang's pipeline reproduces (8/8 SAT instances, 8 verified 28-channel depth-13 networks) and our reimplementation reproduces his
-prefix counts and finds SAT on his prefixes; (iii) for n = 30, the direct analog of his construction (Van Voorhis 16-channel prefix stacked
-with the best available 14-channel prefixes, greedy sixth layer, SAT for layers 7–13) is provably not completable for the four best prefixes
-(UNSAT in about 500 s each, also without the normal-form constraints), and every greedy seventh-layer commitment is UNSAT within seconds,
-including on Wang's own completable 28-channel prefixes, which shows that greedy min-output extension beyond layer 6 is the wrong tool;
-(iv) for n = 32 the same recipe (two Van Voorhis blocks, 1787 outputs after 6 layers) was given a 2-hour budget per instance (see `results.md`
-for the outcome). What remains open is exactly what was open before: whether depth 13 is achievable for 29–32. The follow-up section of
-`results.md` lists what to try next and why, with the literature calibration that all known depth-13 completions started from prefixes with
-at most about 1200 outputs and 7 layers to go, whereas the best 30-channel prefixes reachable here had about 1850.
+Everything here is reproducible: `src/` holds two independent exhaustive verifiers (`verify_c.c`, `verify_py.py`, tested in `tests/`
+against every network on Dobbelaere's page with n ≤ 20 and against broken networks), a dependency-free reimplementation of the whole
+pipeline (`src/snt`: generate-and-prune prefixes with symmetric subsumption, nested/mirrored stacking, greedy extension, the CCEMS SAT
+encoding with optional open last layer, cardinality bound and control flags, decoding with untangling, stripping, re-layering) and the run
+driver; `networks/` holds the 13 verified networks produced (all reproductions of the known 28-channel bound plus one derived 27-channel
+network, with provenance and `VERIFICATION.txt`); `results.md` gives every run with parameters, timings and a VERIFIED / NEGATIVE /
+INCONCLUSIVE label, plus what a follow-up should try (longer budgets, SAT-scored beam search for layer 6, better block prefixes, unrestricted
+suffixes); `NOTES.md` is the chronological log including the literature review; `submission_email.txt` is a template marked not to be sent.

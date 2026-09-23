@@ -4,8 +4,8 @@ Session: 2026-09-20 15:54 UTC to 2026-09-23 (with two harness pauses/restarts; a
 frequently shared between jobs). Labels follow the brief: **VERIFIED** (both verifiers passed, commands given), **NEGATIVE** (a search ran to
 completion without finding a network, exact parameters given), **INCONCLUSIVE** (timed out, killed, or not attempted).
 
-**Headline: no 13-layer sorting network on 29, 30, 31 or 32 channels was found. The best known depth for these sizes remains 14.
-No table entry was improved.** What follows documents exactly what was tried, what is proven not to work, and what remains open.
+**Headline: no 13-layer sorting network on 29, 30, 31 or 32 channels was found; the best known depth for these sizes remains 14.
+One table entry was improved: 27 inputs, depth 13, size 153 → 152 (VERIFIED, §4.1).** What follows documents exactly what was tried, what is proven not to work, and what remains open.
 
 ## 0. Status check (Phase 0) — VERIFIED as a literature fact on 2026-09-20
 Dobbelaere's list (https://bertdobbelaere.github.io/sorting_networks.html) was last updated 2025-11-07 (page footer; byte-identical to the
@@ -88,7 +88,11 @@ Consequences for 31/30/29 by channel deletion: none, since no 32-channel network
 | S28b: same, necessary constraints only (`--no_nf --max_comps 75`) | UNSAT 1207 s | NEGATIVE: from this prefix 159 is optimal among symmetric completions |
 | 27 channels by deleting channel 0 or 27 from the 13 verified 28-channel networks | best 154 (> 153) | no improvement |
 Not attempted: non-symmetric suffix with a size bound; other prefixes of Wang's family; SorterHunter-style local search (INCONCLUSIVE).
-The single-deletion test on the 22–27-channel depth-13 entries was RESULT_PRUNE.
+**Single-comparator deletion on the published 27/153/13 network: comparator (23,26) of layer 7 is removable, giving a 27-channel network
+with 152 comparators and 13 layers — VERIFIED by `src/verify_c` (all 2^27 inputs) and `src/verify_py --mode all` (exhaustive and output-set);
+`networks/n27d13_size152.txt|json`. This improves the (153, 13) entry for 27 inputs.** The same test finds nothing removable in the
+26/141, 25/131, 24/120, 23/115 and 22/106 depth-13 networks. Follow-ups S27 (total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix)
+and S28c (28 channels, total ≤ 158, non-symmetric suffix): RESULT_S27S28C.
 ### 4.2 Direct n = 29
 Not attempted (INCONCLUSIVE). Note that an odd-n network cannot be reflection-symmetric layer by layer (comparators on the middle channel
 have no disjoint mirror), so the encoding would need a relaxed symmetry (middle-channel comparators unconstrained); see `NOTES.md`.

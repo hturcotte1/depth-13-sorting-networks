@@ -1,0 +1,20 @@
+=== run n30_Fp_16_14_lib_L6_minisat started 2026-09-23T01:11:15Z on vm
+args: lib=runs/n30_16_14/stack_lib_L6.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=1200 limit=8 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 1693;1 1693;2 1697;3 1697;4 1729;5 1729;6 1733;7 1733;
+cnf 0000: |out|=1693 window_sum=17706 max=27 vars=146585 clauses=4902318 (0.6 s)
+cnf 0001: |out|=1693 window_sum=17678 max=27 vars=146361 clauses=4867514 (0.7 s)
+cnf 0002: |out|=1697 window_sum=17814 max=27 vars=147449 clauses=4963014 (0.7 s)
+cnf 0003: |out|=1697 window_sum=17784 max=27 vars=147209 clauses=4941114 (0.7 s)
+cnf 0004: |out|=1729 window_sum=18006 max=27 vars=148985 clauses=4956888 (0.7 s)
+cnf 0005: |out|=1729 window_sum=18038 max=27 vars=149241 clauses=4990076 (0.7 s)
+cnf 0006: |out|=1733 window_sum=18116 max=27 vars=149865 clauses=5028704 (0.8 s)
+cnf 0007: |out|=1733 window_sum=18146 max=27 vars=150105 clauses=5050772 (0.9 s)
+cnf generation took 34 s
+solving 8 instances with minisat, timeout 1200s, 2 jobs
+01:25:34 0000.cnf UNSAT 797.6s 
+01:25:52 0001.cnf UNSAT 815.2s 
+01:39:01 0002.cnf UNSAT 806.9s 
+01:39:35 0003.cnf UNSAT 822.8s 
+01:59:01 0004.cnf TIMEOUT 1200.1s 
+01:59:35 0005.cnf TIMEOUT 1200.1s 

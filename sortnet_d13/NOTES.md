@@ -259,3 +259,11 @@ Queued: 32-channel 5-cube family (|out| 7581) -> greedy 6th layer -> best 2 with
 16+14 pool prefixes #5-#12 (|out| 1857..1973), 7 SAT layers, 1200 s each: 8/8 UNSAT in 841, 1112, 1122, 1193, 1032, 985, 1000, 881 s.
 Together with run F: the 12 best greedy-6 prefixes of the 16+14 family have no reflection-symmetric 13-layer completion.
 F' (library stacks): greedy 6th layer in progress (round 0: best 4224 from 128 stacked prefixes, 637 s under load).
+
+## NEW RESULT — 27 channels, 152 comparators, 13 layers — VERIFIED (02:10 UTC, 23 Sep)
+src/prune_single.py (exhaustive single-comparator deletion with the exact output-set check) on the published depth-13 networks:
+28/159: no removable comparator; 27/153: layer-7 comparator (23,26) is removable -> 152 comparators, 13 layers; 26/141, 25/131, 24/120,
+23/115, 22/106: none removable. The 27/152/13 network passes src/verify_c (all 2^27 inputs, 0.24 s) and src/verify_py --mode all
+(exhaustive numpy pass + output-set method, 2m39s). Improves Dobbelaere's (153,13) entry for 27 inputs. File: networks/n27d13_size152.txt/.json.
+Follow-ups launched: S27 (first 6 layers of the 152-network, 77 comparators, |out| 884, 7 SAT layers, non-symmetric, suffix <= 74 -> total <= 151),
+S28c (Wang prefix #0, non-symmetric suffix <= 75 -> total <= 158); both with necessary constraints only, 14400 s.
