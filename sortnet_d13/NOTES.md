@@ -281,3 +281,5 @@ reflection-symmetric 13-layer completion of its greedy 6-layer prefixes. F'' (30
 ## Run H — INCONCLUSIVE; run F'' partial (03:01 UTC)
 H: run F prefix 0 (1853) with a NON-symmetric suffix (CNF 2x the symmetric one): minisat TIMEOUT at 14400 s (4 h, shared cores).
 F'': library-stack prefixes #5,#6 (|out| 1729): UNSAT in 1634 s and 1650 s; #7,#8 (1733) running with 7200 s.
+F'' complete (03:18 UTC): #7,#8 (1733) UNSAT in 1057 s and 1078 s -> all 8 best library-stack prefixes UNSAT. NEGATIVE.
+Run A2 (03:20): seed-family prefixes #0,#1 (|out| 1699, 1735; run A timed out at 1800 s), 7 SAT layers, 7200 s each, 2 jobs.

@@ -49,6 +49,7 @@ details in `NOTES.md`.)
 | D | S, 6 layers + 3 greedy layer-7 pairs frozen (1186…1208), best 8 | 6 | 1800 s | 8/8 UNSAT, 15–20 s | NEGATIVE |
 | E | as D, layer 7 open for SAT on the other 24 channels | 6+ | 1800 s | 8/8 UNSAT, 15–24 s | NEGATIVE |
 | A | S, 6 layers (1699, 1735, 1915, 1915) | 7 | 1800 s | 4/4 TIMEOUT; #5–#8 not run | INCONCLUSIVE |
+| A2 | S, 6 layers, #1–#2 (1699, 1735) | 7 | 7200 s | RESULT_A2 | LABEL_A2 |
 | F | N4, 6 layers (1853, 1853, 1857, 1857) | 7 | 7200 s | 4/4 UNSAT, 501–520 s | NEGATIVE |
 | F-control | N4 #1 (1853), normal-form constraints psi1/psi3 removed | 7 | 14400 s | UNSAT 654 s | NEGATIVE |
 | H | N4 #1 (1853), suffix not required to be symmetric (325k vars) | 7 | 14400 s | TIMEOUT at 14400 s | INCONCLUSIVE |
@@ -56,7 +57,7 @@ details in `NOTES.md`.)
 | K30 | D30, 7 layers (1033) | 6 | 3600 s | UNSAT 3.2 s | NEGATIVE |
 | F5 | N4 #5–#12 (1857…1973) | 7 | 1200 s | 8/8 UNSAT, 841–1193 s | NEGATIVE |
 | F' | NL pool (128 stacks), greedy 6th layer, best 8 (1693, 1693, 1697, 1697, 1729, 1729, 1733, 1733) | 7 | 1200 s | #1–#4 UNSAT 798–823 s; #5–#8 TIMEOUT | NEGATIVE (4) / INCONCLUSIVE (4) |
-| F'' | F' prefixes #5–#8 (1729, 1729, 1733, 1733) | 7 | 7200 s | #5–#6 UNSAT 1634 s, 1650 s; #7–#8 RESULT_FPP2 | NEGATIVE (2) / LABEL_FPP2 |
+| F'' | F' prefixes #5–#8 (1729, 1729, 1733, 1733) | 7 | 7200 s | 4/4 UNSAT, 1057–1650 s | NEGATIVE |
 Reproduce any row: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> <jobs> [--open_last] [--no_nf] [--max_comps K]`;
 the prefix libraries are under `runs/` (`n30_seed/vv_del_L6.txt`, `n30_16_14/stack_g4_L6.txt`, …), the CNF headers record the prefix and the
 channel permutation, and each run's `log.txt` records sizes and timings.

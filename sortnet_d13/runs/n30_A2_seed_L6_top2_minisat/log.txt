@@ -1,0 +1,4 @@
+=== run n30_A2_seed_L6_top2_minisat started 2026-09-23T03:24:24Z on vm
+args: lib=runs/n30_seed/vv_del_L6_top2.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=7200 limit=2 jobs=2 extra=''
+output-set sizes of the prefixes to be solved:
+0 1699;1 1735;

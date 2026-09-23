@@ -10,3 +10,13 @@ cnf generation took 18 s
 solving 4 instances with minisat, timeout 7200s, 2 jobs
 03:00:10 0001.cnf UNSAT 1633.6s 
 03:00:27 0000.cnf UNSAT 1650.3s 
+03:17:47 0002.cnf UNSAT 1056.8s 
+03:18:26 0003.cnf UNSAT 1078.4s 
+done: 0 SAT of 4 in 2729s wall
+solving took 2729 s
+=== run n30_Fpp_16_14_lib_L6_p5to8_minisat finished 2026-09-23T03:18:26Z
+summary: 4 instances: 0 SAT, 4 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 1650s
+  0001.cnf minisat UNSAT 1634s
+  0002.cnf minisat UNSAT 1057s
+  0003.cnf minisat UNSAT 1078s
