@@ -295,3 +295,11 @@ comparator, exactly one does: 27/153/13 -> 152 (layer 7, (23,26)); after that de
 Still running: S27 (27 channels, total <= 151 via SAT+cardinality, non-symmetric suffix) and S28c (28 channels, total <= 158, non-symmetric),
 14400 s each, started 02:11.
 Pair-deletion test (`snt prune --pairs`) on 27/152/13: all 11476 pairs tested, none removable (04:48 UTC). 28/159/13 pair test running.
+Pair-deletion test on 28/159/13: 12561 pairs, none removable (06:00 UTC).
+
+## Final state (06:15 UTC, 23 Sep)
+S27 (27 ch, total <= 151, non-sym) and S28c (28 ch, total <= 158, non-sym): TIMEOUT at 14400 s each -> INCONCLUSIVE. No processes left running.
+Summary of compute (wall clock, 4 cores, often shared): Phase 1 reproduction 37 min; own-pipeline calibration ~1 h; prefix libraries
+(12/14/15/16 channels) ~14 h of mostly background generation; SAT runs on 30/32 channels ~30 instance-hours; size-reduction SAT ~10 instance-hours;
+deletion sweeps ~3 h. Time lost to a harness pause (18:40-01:30 on 20/21 Sep) and a container restart (~05:00 21 Sep to 22:45 22 Sep).
+Deliverables: README.md, results.md, networks/ (14 verified files + VERIFICATION.txt), src/ (pipeline + two verifiers), tests/, submission_email.txt, NOTES.md.

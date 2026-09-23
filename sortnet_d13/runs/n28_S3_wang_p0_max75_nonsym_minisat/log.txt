@@ -1,3 +1,6 @@
 === S28c started 2026-09-23T02:11:29Z: Wang prefix #0 (83 comps) + 7 SAT layers, NON-symmetric, suffix <= 75 (total <= 158), necessary constraints only
 cnf 0000: |out|=928 window_sum=8608 max=25 vars=275842 clauses=2682405 (1.1 s)
 solving 1 instances with minisat, timeout 14400s, 1 jobs
+06:11:34 0000.cnf TIMEOUT 14400.2s 
+done: 0 SAT of 1 in 14400s wall
+=== S28c finished 2026-09-23T06:11:34Z

@@ -87,17 +87,20 @@ Consequences for 31/30/29 by channel deletion: none, since no 32-channel network
 ### 4.1 Size at depth 13 for 27/28 (table: 153 and 159)
 | test | result | label |
 |---|---|---|
-| single-comparator deletion from 28/159/13 (exact output-set check for each of the 159 comparators) | none removable | NEGATIVE |
+| single- and pair-comparator deletion from 28/159/13 (exact output-set check; 159 singles, 12561 pairs) | none removable | NEGATIVE |
 | single-comparator deletion over all 54 published networks (`snt prune`) | only 27/153/13 has a removable comparator | see below |
 | S28: Wang prefix #0 (83 comparators) + 7 layers with ≤ 75 suffix comparators (total ≤ 158), symmetric, with normal forms | UNSAT 989 s | NEGATIVE (under normal forms) |
 | S28b: same, necessary constraints only (`--no_nf --max_comps 75`) | UNSAT 1207 s | NEGATIVE: from this prefix 159 is optimal among symmetric completions |
+| S28c: same with a non-symmetric suffix (`--max_comps 75 --no_nf`, no `--sym`) | TIMEOUT 14400 s | INCONCLUSIVE |
+| S27: 27/152 network, first 6 layers (77) + 7 layers with ≤ 74 suffix comparators (total ≤ 151), non-symmetric | TIMEOUT 14400 s | INCONCLUSIVE |
 | 27 channels by deleting channel 0 or 27 from the 13 verified 28-channel networks | best 154 (> 153) | no improvement |
-Not attempted: non-symmetric suffix with a size bound; other prefixes of Wang's family; SorterHunter-style local search (INCONCLUSIVE).
+Not attempted: other prefixes of Wang's family with a size bound; SorterHunter-style local search (INCONCLUSIVE).
 **Single-comparator deletion on the published 27/153/13 network: comparator (23,26) of layer 7 is removable, giving a 27-channel network
 with 152 comparators and 13 layers — VERIFIED by `src/verify_c` (all 2^27 inputs) and `src/verify_py --mode all` (exhaustive and output-set);
 `networks/n27d13_size152.txt|json`. This improves the (153, 13) entry for 27 inputs.** The same test, run with the fast C++ implementation (`snt prune`) over **all 54 networks of the list**, finds no other removable
 comparator anywhere (`runs/prune_all.log`). Deleting any two comparators of the 152-network never leaves a sorting network (`snt prune --pairs`, 11476 pairs). Follow-ups S27
-(total ≤ 151 via SAT with a cardinality bound, non-symmetric suffix) and S28c (28 channels, total ≤ 158, non-symmetric suffix): RESULT_S27S28C.
+(first 6 layers of the 152-network, 77 comparators, |out| 884, 7 SAT layers with ≤ 74 suffix comparators, non-symmetric, necessary constraints only)
+and S28c (Wang prefix #0, 7 SAT layers with ≤ 75 suffix comparators, non-symmetric suffix): both TIMEOUT at 14400 s — INCONCLUSIVE.
 ### 4.2 Direct n = 29
 Not attempted (INCONCLUSIVE). Note that an odd-n network cannot be reflection-symmetric layer by layer (comparators on the middle channel
 have no disjoint mirror), so the encoding would need a relaxed symmetry (middle-channel comparators unconstrained); see `NOTES.md`.
