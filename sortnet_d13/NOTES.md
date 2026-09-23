@@ -283,3 +283,8 @@ H: run F prefix 0 (1853) with a NON-symmetric suffix (CNF 2x the symmetric one):
 F'': library-stack prefixes #5,#6 (|out| 1729): UNSAT in 1634 s and 1650 s; #7,#8 (1733) running with 7200 s.
 F'' complete (03:18 UTC): #7,#8 (1733) UNSAT in 1057 s and 1078 s -> all 8 best library-stack prefixes UNSAT. NEGATIVE.
 Run A2 (03:20): seed-family prefixes #0,#1 (|out| 1699, 1735; run A timed out at 1800 s), 7 SAT layers, 7200 s each, 2 jobs.
+
+## Run A2 — NEGATIVE (03:40 UTC)
+Seed-family prefixes #0,#1 (|out| 1699, 1735): UNSAT in 549 s and 909 s (run A's 1800 s timeouts were CPU contention).
+Tally for "Wang's recipe transferred" (6 greedy layers + 7 SAT layers, symmetric): n=30: 22 prefixes tested (S: 2, N4: 12, NL: 8), 22 UNSAT;
+n=32: 6 prefixes (VV16+VV16: 4, 5-cube: 2), 6 UNSAT. Inconclusive: run G (8 free layers), run H (non-symmetric suffix), run A #3-#8.

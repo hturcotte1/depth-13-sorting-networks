@@ -49,7 +49,7 @@ details in `NOTES.md`.)
 | D | S, 6 layers + 3 greedy layer-7 pairs frozen (1186…1208), best 8 | 6 | 1800 s | 8/8 UNSAT, 15–20 s | NEGATIVE |
 | E | as D, layer 7 open for SAT on the other 24 channels | 6+ | 1800 s | 8/8 UNSAT, 15–24 s | NEGATIVE |
 | A | S, 6 layers (1699, 1735, 1915, 1915) | 7 | 1800 s | 4/4 TIMEOUT; #5–#8 not run | INCONCLUSIVE |
-| A2 | S, 6 layers, #1–#2 (1699, 1735) | 7 | 7200 s | RESULT_A2 | LABEL_A2 |
+| A2 | S, 6 layers, #1–#2 (1699, 1735) | 7 | 7200 s | 2/2 UNSAT, 549 s and 909 s | NEGATIVE |
 | F | N4, 6 layers (1853, 1853, 1857, 1857) | 7 | 7200 s | 4/4 UNSAT, 501–520 s | NEGATIVE |
 | F-control | N4 #1 (1853), normal-form constraints psi1/psi3 removed | 7 | 14400 s | UNSAT 654 s | NEGATIVE |
 | H | N4 #1 (1853), suffix not required to be symmetric (325k vars) | 7 | 14400 s | TIMEOUT at 14400 s | INCONCLUSIVE |
@@ -62,7 +62,8 @@ Reproduce any row: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <b
 the prefix libraries are under `runs/` (`n30_seed/vv_del_L6.txt`, `n30_16_14/stack_g4_L6.txt`, …), the CNF headers record the prefix and the
 channel permutation, and each run's `log.txt` records sizes and timings.
 
-Interpretation. The negatives are exact for the stated prefixes: with the CCEMS necessary constraints (last layer adjacent comparators only;
+Tally: 22 six-layer prefixes for n = 30 (three families) and 6 for n = 32 (two families) were tested with 7 SAT layers; all 28 are UNSAT
+(500–1800 s each). Interpretation. The negatives are exact for the stated prefixes: with the CCEMS necessary constraints (last layer adjacent comparators only;
 second-to-last layer span ≤ 3 with its implications), which hold for the non-redundant form of any network of the same depth and are compatible
 with reflection symmetry (a comparator and its mirror are redundant together), UNSAT means no reflection-symmetric 13-layer completion exists.
 The control run shows the verdict does not hinge on the normal-form constraints. The fast negatives B/D/E are uninformative about the 6-layer

@@ -2,3 +2,15 @@
 args: lib=runs/n30_seed/vv_del_L6_top2.txt depth=13 greedy_layers=0 keep=64 solver=minisat timeout=7200 limit=2 jobs=2 extra=''
 output-set sizes of the prefixes to be solved:
 0 1699;1 1735;
+cnf 0000: |out|=1699 window_sum=17872 max=29 vars=147913 clauses=4998046 (0.6 s)
+cnf 0001: |out|=1735 window_sum=18204 max=29 vars=150569 clauses=5085804 (0.6 s)
+cnf generation took 10 s
+solving 2 instances with minisat, timeout 7200s, 2 jobs
+03:33:51 0000.cnf UNSAT 549.2s 
+03:39:51 0001.cnf UNSAT 909.3s 
+done: 0 SAT of 2 in 909s wall
+solving took 909 s
+=== run n30_A2_seed_L6_top2_minisat finished 2026-09-23T03:39:51Z
+summary: 2 instances: 0 SAT, 2 UNSAT, 0 TIMEOUT
+  0000.cnf minisat UNSAT 549s
+  0001.cnf minisat UNSAT 909s
