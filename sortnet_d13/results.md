@@ -54,7 +54,7 @@ details in `NOTES.md`.)
 | H | N4 #1 (1853), suffix not required to be symmetric | 7 | 14400 s | RESULT_H | LABEL_H |
 | G | N4, 5 layers (5478, 5478), no greedy layer | 8 | 14400 s | killed by container restart after ~3 h (602k vars, 21.8M clauses) | INCONCLUSIVE |
 | K30 | D30, 7 layers (1033) | 6 | 3600 s | UNSAT 3.2 s | NEGATIVE |
-| F5 | N4 #5–#12 (1857…) | 7 | 1200 s | RESULT_F5 | LABEL_F5 |
+| F5 | N4 #5–#12 (1857…1973) | 7 | 1200 s | 8/8 UNSAT, 841–1193 s | NEGATIVE |
 | F' | NL pool, greedy 6th layer, best 8 | 7 | 1200 s | RESULT_FP | LABEL_FP |
 Reproduce any row: `src/run_search.sh <name> <prefix library> 13 0 64 minisat <budget> <count> <jobs> [--open_last] [--no_nf] [--max_comps K]`;
 the prefix libraries are under `runs/` (`n30_seed/vv_del_L6.txt`, `n30_16_14/stack_g4_L6.txt`, …), the CNF headers record the prefix and the

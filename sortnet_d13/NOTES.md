@@ -252,3 +252,10 @@ Run F5 (23:58): 30-channel 16+14 pool prefixes #5-#12 (|out| 1857..~1900), 7 SAT
 depth 4: 4389 (kept ~4000 of 49487; 5.76M candidates generated), depth 5: 32 prefixes, best |out| = 66 (6450 s for the last step).
 The best value equals the keep-4 greedy result (66), so the exhaustive-ish library does not improve the 16+14 stacks' 5478 outputs.
 Run F' (00:40): stack all 32 with both VV16 variants in both nestings, greedy 6th layer (keep 64), then the 8 best with 1200 s each.
+Run F5 (variance sweep, prefixes #5-#12 of the 16+14 pool, 1200 s each): #5-#8 UNSAT in 841, 1112, 1122, 1193 s (so far).
+Queued: 32-channel 5-cube family (|out| 7581) -> greedy 6th layer -> best 2 with 7 SAT layers, 3600 s each (run C32), after F5.
+
+## Run F5 — NEGATIVE (01:08 UTC)
+16+14 pool prefixes #5-#12 (|out| 1857..1973), 7 SAT layers, 1200 s each: 8/8 UNSAT in 841, 1112, 1122, 1193, 1032, 985, 1000, 881 s.
+Together with run F: the 12 best greedy-6 prefixes of the 16+14 family have no reflection-symmetric 13-layer completion.
+F' (library stacks): greedy 6th layer in progress (round 0: best 4224 from 128 stacked prefixes, 637 s under load).
